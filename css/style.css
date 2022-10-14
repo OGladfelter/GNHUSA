@@ -190,4 +190,6 @@ div.tooltip {
     padding: 5px;
     position: absolute;
     background-color: white;
+    max-width: 15vw;
+    /* transform: translateX(-50%, 0px, 0px) !important; this would turn off rellax */
 }
