@@ -283,6 +283,8 @@ function main() {
         },
         offset: '50%'
     });
+
+    var rellax = new Rellax('.rellax');
 }
 
 main();
