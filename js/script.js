@@ -2,6 +2,81 @@ const primaryColor = '#0024d9';
 const secondaryColor = 'red';
 const highlightColor = 'cyan';
 
+function map() {
+    // add svg
+    let box = document.getElementById('map');
+    let width = box.offsetWidth;
+    const height = width * .75;
+    const svg = d3.select("#map")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // Map and projection
+    const path = d3.geoPath();
+    const projection = d3.geoAlbersUsa()
+        .scale(1100)
+        .translate([width / 2, height / 2]);
+
+    // Data 
+    const data = new Map();
+
+    // Load external data and boot
+    Promise.all([
+        d3.json("data/states.json"),
+        d3.csv("data/stateData.csv", function(d) {
+            data.set(d.NAME, +d.pop);
+        })]).then(function(loadData) {
+            let topo = loadData[0];
+
+            let mouseOver = function() {
+                d3.selectAll(".state")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", .5)
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1)
+            }
+
+            let mouseLeave = function() {
+                d3.selectAll(".state")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1)
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+            }
+
+            console.log(Math.min(...data.values()));
+            const colorScale = d3.scaleLinear()
+                .domain([Math.min(...data.values()), Math.max(...data.values())])
+                .range(['#007bff', '#0007c9']);
+
+            // Draw the map
+            svg.append("g")
+                .selectAll("path")
+                .data(topo.features)
+                .enter()
+                .append("path")
+                // draw each country
+                .attr("d", d3.geoPath()
+                    .projection(projection)
+                )
+                // set the color of each state
+                .attr("fill", function (d) {
+                    d.total = data.get(d.properties.NAME) || 0;
+                    return colorScale(d.total);
+                })
+                .style("stroke", "white")
+                .attr("class", "state" )
+                .on("mouseover", mouseOver)
+                .on("mouseleave", mouseLeave);
+        });
+}
+
 function runStreaks() {
 
     let box = document.getElementById('runStreaksScatterplot');
@@ -246,6 +321,7 @@ function drawPie() {
 }
 
 function main() {
+    map();
     runStreaks();
     packedCountryCircles();
     xkcdChart();
