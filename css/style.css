@@ -195,3 +195,23 @@ div.tooltip {
     color: rgb(244, 243, 243);
     /* transform: translateX(-50%, 0px, 0px) !important; this would turn off rellax */
 }
+
+.fakeButton {
+    display: inline-block;
+    background: white;
+    border: 1px black solid;
+    border-radius: 5px;
+    color: black;
+    padding: 2.5px 4px;
+    cursor: pointer;
+    
+}
+.fakeButton:hover {
+    background: #0007c9;
+    color: white;
+}
+
+#top0, #top1, #top2, #top3, #top4, #bottom0, #bottom1, #bottom2, #bottom3, #bottom4 {
+    font-weight: bold;
+    pointer-events: none;
+}

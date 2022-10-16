@@ -6,7 +6,7 @@ function map() {
     // add svg
     let box = document.getElementById('map');
     let width = box.offsetWidth;
-    const height = width * .75;
+    const height = width * .6;
     const svg = d3.select("#map")
         .append("svg")
         .attr("width", width)
@@ -25,32 +25,29 @@ function map() {
     Promise.all([
         d3.json("data/states.json"),
         d3.csv("data/stateData.csv", function(d) {
-            data.set(d.NAME, +d.pop);
+            data.set(d.state, +d.lifeSat);
         })]).then(function(loadData) {
             let topo = loadData[0];
 
-            let mouseOver = function() {
-                d3.selectAll(".state")
-                    .transition()
-                    .duration(200)
-                    .style("opacity", .5);
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 1);
-            }
-
             let mouseLeave = function() {
-                d3.selectAll(".state")
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 1);
+                d3.selectAll(".state").style("opacity", 1);
             }
 
-            console.log(Math.min(...data.values()));
             const colorScale = d3.scaleLinear()
                 .domain([Math.min(...data.values()), Math.max(...data.values())])
                 .range(['#007bff', '#0007c9']);
+            // confirm data is sorted by life sat
+            var lifeSat = [...new Map([...data.entries()].sort((a, b) => b[1] - a[1]))];
+
+            // color text state names
+            for (let i = 0; i < 5; i++) {
+                const row = lifeSat[i];
+                document.getElementById('top' + i).style.color = colorScale(row[1]);
+            }
+            for (let i = 0, r = lifeSat.length - 1; i < 5, r >= lifeSat.length - 5; i++, r--) {
+                const row = lifeSat[r];
+                document.getElementById('bottom' + i).style.color = colorScale(row[1]);
+            }
 
             // Draw the map
             svg.append("g")
@@ -58,19 +55,42 @@ function map() {
                 .data(topo.features)
                 .enter()
                 .append("path")
-                // draw each country
+                // draw each state
                 .attr("d", d3.geoPath()
                     .projection(projection)
                 )
-                // set the color of each state
                 .attr("fill", function (d) {
                     d.total = data.get(d.properties.NAME) || 0;
                     return colorScale(d.total);
                 })
+                .attr("id", function (d) {
+                    return d.properties.NAME;
+                })
                 .style("stroke", "white")
-                .attr("class", "state" )
-                .on("mouseover", mouseOver)
-                .on("mouseleave", mouseLeave);
+                .attr("class", "state" );
+
+            document.getElementById("top5LifeSat")
+                .addEventListener('mouseover', function() {
+                    d3.selectAll(".state")
+                        .style("opacity", .3);
+                    for (let i = 0; i < 5; i++) {
+                        const row = lifeSat[i];
+                        document.getElementById(row[0]).style.opacity = 1;
+                    }
+                });
+            document.getElementById("top5LifeSat").addEventListener('mouseout', mouseLeave);
+
+            document.getElementById("bottom5LifeSat")
+                .addEventListener('mouseover', function() {
+                    d3.selectAll(".state")
+                        .style("opacity", .3);
+                    for (let i = lifeSat.length - 1; i >= lifeSat.length - 5; i--) {
+                        const row = lifeSat[i];
+                        document.getElementById(row[0]).style.opacity = 1;
+                    }
+                });
+            document.getElementById("bottom5LifeSat").addEventListener('mouseout', mouseLeave);
+
         });
 }
 
