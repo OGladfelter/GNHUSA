@@ -33,21 +33,18 @@ function map() {
                 d3.selectAll(".state")
                     .transition()
                     .duration(200)
-                    .style("opacity", .5)
+                    .style("opacity", .5);
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .style("opacity", 1)
+                    .style("opacity", 1);
             }
 
             let mouseLeave = function() {
                 d3.selectAll(".state")
                     .transition()
                     .duration(200)
-                    .style("opacity", 1)
-                d3.select(this)
-                    .transition()
-                    .duration(200)
+                    .style("opacity", 1);
             }
 
             console.log(Math.min(...data.values()));
