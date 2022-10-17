@@ -131,59 +131,63 @@ function runStreaks() {
         "translate(" + margin.left + "," + margin.top + ")");
 
     // Get the data
-    d3.csv("data/runStreaks.csv").then(function(data) {
+    d3.csv("data/age_and_happiness.csv").then(function(data) {
 
         // format the data
         data.forEach(function(d) {
-            d.age = +d.age;
-            d.days = +d.days;
+            d.Q2 = +d.Q2;
+            d.happiness = +d.happiness;
         });
 
         // Scale the range of the data
-        x.domain(d3.extent(data, function(d) { return d.days; }));
-        y.domain([0, d3.max(data, function(d) { return d.age; })]);
+        x.domain(d3.extent(data, function(d) { return d.Q2; }));
+        y.domain([0, d3.max(data, function(d) { return d.happiness; })]);
         
         // Add the scatterplot
         svg.selectAll("dot")
         .data(data)
         .enter().append("circle")
-        .attr("r", 5)
-        .attr("cx", function(d) { return x(d.days); })
-        .attr("cy", function(d) { return y(d.age); })
-        .style('fill', function(d) { if (d.days > 10) return primaryColor; else return secondaryColor})
-        .style('opacity', function(d) { if (d.days > 10) return 0.5; else return 1})
-        .on('mouseover', function() {
-            d3.select(this).style('stroke', highlightColor).style('stroke-width', 3).raise();
-        })
-        .on('mouseout', function() {
-            d3.select(this).style('stroke', 'none');
-        })
+        .attr("r", 3)
+        .attr("cx", function(d) { return x(d.Q2); })
+        .attr("cy", function(d) { return y(d.happiness); })
+        .style('fill', primaryColor)
+        .style('opacity', 0.9)
+        // .on('mouseover', function() {
+        //     d3.select(this).style('stroke', highlightColor).style('stroke-width', 3).raise();
+        // })
+        // .on('mouseout', function() {
+        //     d3.select(this).style('stroke', 'none');
+        // })
 
         // Handmade legend
-        svg.append("circle").attr("cx", x(18000)).attr("cy", y(25)).attr("r", 6).style("fill", secondaryColor);
-        svg.append("circle").attr("cx", x(18000)).attr("cy", y(20)).attr("r", 6).style("fill", primaryColor);
-        svg.append("text").attr("x", x(18300)).attr("y", y(25)).text("Me").style("font-size", "15px").attr("alignment-baseline","middle");
-        svg.append("text").attr("x", x(18300)).attr("y", y(20)).text("Not me").style("font-size", "15px").attr("alignment-baseline","middle");
+        svg.append("circle").attr("cx", x(9)).attr("cy", y(25)).attr("r", 6).style("fill", secondaryColor);
+        svg.append("circle").attr("cx", x(9)).attr("cy", y(20)).attr("r", 6).style("fill", primaryColor);
+        svg.append("text").attr("x", x(9.5)).attr("y", y(25)).text("Me").style("font-size", "15px").attr("alignment-baseline","middle");
+        svg.append("text").attr("x", x(9.5)).attr("y", y(20)).text("Not me").style("font-size", "15px").attr("alignment-baseline","middle");
 
         // Add the X Axis
         svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+            .attr("transform", "translate(0," + height + ")")
+            .attr("class", "axis")
+            .call(d3.axisBottom(x));
 
         // Add the Y Axis
         svg.append("g")
-        .call(d3.axisLeft(y));
+            //.attr("transform", "translate(" + 10 + "," + 0 + ")")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y));
 
+        // axis labels
         svg.append("text")
             .attr("class", "x-axis-label")
-            .attr("x", width)
-            .attr("y", height - 5)
-            .text("Days ran in a row");
+            .attr("x", width - margin.right)
+            .attr("y", height - 10)
+            .text("Age");
         svg.append("text")
             .attr("class", "y-axis-label")
-            .attr("x", 5)
+            .attr("x", 10)
             .attr("y", 0 + margin.top)
-            .text("Age");
+            .text('"How happy did you feel yesterday?"');
 
     });
 }
@@ -276,85 +280,10 @@ function packedCountryCircles() {
         });
 }
 
-function xkcdChart() {
-    const svg = document.getElementById('xkcdLineplot');
-
-    new chartXkcd.Line(svg, {
-        title: 'How to make enemies and irritate people',
-        xLabel: 'Time',
-        yLabel: 'Enemies',
-        data: {
-        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        datasets: [{
-            label: 'Enemies',
-            data: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81],
-        }],
-        },
-        options: {
-            yTickCount: 3,
-            legendPosition: chartXkcd.config.positionType.upLeft,
-            dataColors: [primaryColor],
-            backgroundColor: 'none',
-            strokeColor: 'rgb(50,50,100)',
-            showLegend: false
-        }
-    });
-}
-
-function drawPie() {
-    // create Donut chart using defined data & customize plot options
-    new roughViz.Donut(
-        {
-            element: '#pieChart',
-            data: {
-                labels: ['Checking Gmail', 'On my phone', 'Snacking', 'Actual work'],
-                values: [20, 49, 23, 8]
-            },
-            title: "How I Spend My Day [%]",
-            width: window.innerWidth / 4,
-            roughness: 2,
-            colors: ['red', 'orange', 'blue', 'skyblue'],
-            stroke: 'black',
-            strokeWidth: 3,
-            fillStyle: 'hachure',
-            fillWeight: 3,
-            legendPosition: 'left',
-            titleFontSize: '1.5rem',
-            margin: {top: 70, right: 0, bottom: 0, left: 0}
-        }
-    );
-    new roughViz.Donut(
-        {
-            element: '#pieChart2',
-            data: {
-                labels: ['Checking Gmail', 'On their phone', 'Snacking', 'Actual work'],
-                values: [14, 19, 2, 65]
-            },
-            title: "How Others Spend Their Day?",
-            width: window.innerWidth / 4,
-            roughness: 2,
-            colors: ['red', 'orange', 'blue', 'skyblue'],
-            stroke: 'black',
-            strokeWidth: 3,
-            fillStyle: 'hachure',
-            fillWeight: 3,
-            legendPosition: 'left',
-            titleFontSize: '1.5rem',
-            margin: {top: 70, right: 0, bottom: 0, left: 0}
-        }
-    );
-    const legend = document.querySelector('.roughpieChart');
-    legend.style.transform = 'translate(0px, 10px)';
-    const legend2 = document.querySelector('.roughpieChart2');
-    legend2.style.transform = 'translate(0px, 10px)';
-}
-
 function main() {
     map();
     runStreaks();
     packedCountryCircles();
-    xkcdChart();
-    drawPie();
 
     new Waypoint({
         element: document.getElementById('countryStep1'),
