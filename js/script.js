@@ -29,6 +29,7 @@ function map() {
         })]).then(function(loadData) {
             let topo = loadData[0];
 
+
             let mouseLeave = function() {
                 d3.selectAll(".state").style("opacity", 1);
             }
@@ -69,27 +70,38 @@ function map() {
                 .style("stroke", "white")
                 .attr("class", "state" );
 
-            document.getElementById("top5LifeSat")
-                .addEventListener('mouseover', function() {
-                    d3.selectAll(".state")
-                        .style("opacity", .3);
-                    for (let i = 0; i < 5; i++) {
-                        const row = lifeSat[i];
-                        document.getElementById(row[0]).style.opacity = 1;
+            new Waypoint({
+                element: document.getElementById('top5LifeSatStep'),
+                handler: function(direction) {
+                    if (direction == 'down') {
+                        d3.selectAll(".state").style("opacity", .3);
+                        for (let i = 0; i < 5; i++) {
+                            const row = lifeSat[i];
+                            document.getElementById(row[0]).style.opacity = 1;
+                        }
                     }
-                });
-            document.getElementById("top5LifeSat").addEventListener('mouseout', mouseLeave);
-
-            document.getElementById("bottom5LifeSat")
-                .addEventListener('mouseover', function() {
-                    d3.selectAll(".state")
-                        .style("opacity", .3);
-                    for (let i = lifeSat.length - 1; i >= lifeSat.length - 5; i--) {
-                        const row = lifeSat[i];
-                        document.getElementById(row[0]).style.opacity = 1;
+                    else {
+                        mouseLeave();
                     }
-                });
-            document.getElementById("bottom5LifeSat").addEventListener('mouseout', mouseLeave);
+                },
+                offset: '50%'
+            });
+            new Waypoint({
+                element: document.getElementById('bottom5LifeSatStep'),
+                handler: function(direction) {
+                    if (direction == 'down') {
+                        d3.selectAll(".state").style("opacity", .3);
+                        for (let i = lifeSat.length - 1; i >= lifeSat.length - 5; i--) {
+                            const row = lifeSat[i];
+                            document.getElementById(row[0]).style.opacity = 1;
+                        }
+                    }
+                    else {
+                        mouseLeave();
+                    }
+                },
+                offset: '50%'
+            });
 
         });
 }
