@@ -149,6 +149,10 @@ svg {
 .y-axis-label {
     text-anchor: start;
 }
+.y-axis-sublabel {
+    font-size: 14px;
+    fill: rgb(100, 100, 100);
+}
 
 .axis {
     font-size: 14px;
@@ -168,9 +172,9 @@ div.tooltip {
     position: absolute;
     text-align: center;
     min-width: 50px;
-    max-width: 150px;
+    max-width: 200px;
     padding: 5px;
-    font: 12px;
+    font-size: 14px;
     background: white;
     border: 1px black solid;
     border-radius: 4px;

@@ -112,7 +112,7 @@ function ageAndHappiness() {
     let width = box.offsetWidth;
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 20, bottom: 20, left: 20};
+    var margin = {top: 10, right: 30, bottom: 20, left: 30};
     width = width - margin.left - margin.right;
     var height = width * .5 - margin.top - margin.bottom;
 
@@ -124,11 +124,10 @@ function ageAndHappiness() {
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     var svg = d3.select("#ageAndHappinessScatterplot").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Get the data
     d3.csv("data/age_and_happiness.csv").then(function(data) {
@@ -143,6 +142,8 @@ function ageAndHappiness() {
         x.domain(d3.extent(data, function(d) { return d.Q2; }));
         y.domain([0, d3.max(data, function(d) { return d.happiness; })]);
         
+        const tooltip = d3.select("#tooltip0");
+
         // Add the scatterplot
         svg.selectAll("dot")
         .data(data)
@@ -152,12 +153,17 @@ function ageAndHappiness() {
         .attr("cy", function(d) { return y(d.happiness); })
         .style('fill', primaryColor)
         .style('opacity', 0.9)
-        // .on('mouseover', function() {
-        //     d3.select(this).style('stroke', highlightColor).style('stroke-width', 3).raise();
-        // })
-        // .on('mouseout', function() {
-        //     d3.select(this).style('stroke', 'none');
-        // })
+        .on("mouseover", function(event, d) {
+            tooltip.html('The average happiness score for respondents aged ' + d.Q2 + " years \n is " + d.happiness.toFixed(1))
+                .style('left', event.pageX + 5 + 'px')
+                .style('top', event.pageY + 10 + 'px')
+                .transition()
+                .duration(250)
+                .style('opacity', 1);
+        })
+        .on("mouseout", function() {
+            tooltip.transition().duration(250).style('opacity', 0);
+        });
 
         // Handmade legend
         svg.append("circle").attr("cx", x(9)).attr("cy", y(25)).attr("r", 6).style("fill", secondaryColor);
@@ -173,7 +179,6 @@ function ageAndHappiness() {
 
         // Add the Y Axis
         svg.append("g")
-            //.attr("transform", "translate(" + 10 + "," + 0 + ")")
             .attr("class", "axis")
             .call(d3.axisLeft(y));
 
@@ -188,6 +193,11 @@ function ageAndHappiness() {
             .attr("x", 10)
             .attr("y", 0 + margin.top)
             .text('"How happy did you feel yesterday?"');
+        svg.append("text")
+            .attr("class", "y-axis-sublabel")
+            .attr("x", 14)
+            .attr("y", 20 + margin.top)
+            .text('Scale of 0 (not at all) - 10 (completely)');
 
     });
 }
