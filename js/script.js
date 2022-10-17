@@ -154,7 +154,7 @@ function ageAndHappiness() {
         .style('fill', primaryColor)
         .style('opacity', 0.9)
         .on("mouseover", function(event, d) {
-            tooltip.html('The average happiness score for respondents aged ' + d.Q2 + " years \n is " + d.happiness.toFixed(1))
+            tooltip.html('The average happiness score for respondents aged <b>' + d.Q2 + " years</b> \n is <b>" + d.happiness.toFixed(1) + "</b>")
                 .style('left', event.pageX + 5 + 'px')
                 .style('top', event.pageY + 10 + 'px')
                 .transition()
