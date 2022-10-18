@@ -117,7 +117,7 @@ function ageAndHappiness() {
     var height = width * .5 - margin.top - margin.bottom;
 
     // set the ranges
-    var x = d3.scaleLinear().range([margin.left, width - margin.right]);
+    var x = d3.scaleLinear().range([margin.left / 2, width - margin.right]);
     var y = d3.scaleLinear().range([height, 0]);
 
     // append the svg obgect to the body of the page
@@ -165,22 +165,16 @@ function ageAndHappiness() {
             tooltip.transition().duration(250).style('opacity', 0);
         });
 
-        // Handmade legend
-        svg.append("circle").attr("cx", x(9)).attr("cy", y(25)).attr("r", 6).style("fill", secondaryColor);
-        svg.append("circle").attr("cx", x(9)).attr("cy", y(20)).attr("r", 6).style("fill", primaryColor);
-        svg.append("text").attr("x", x(9.5)).attr("y", y(25)).text("Me").style("font-size", "15px").attr("alignment-baseline","middle");
-        svg.append("text").attr("x", x(9.5)).attr("y", y(20)).text("Not me").style("font-size", "15px").attr("alignment-baseline","middle");
-
         // Add the X Axis
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
             .attr("class", "axis")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x).tickSizeOuter(0));
 
         // Add the Y Axis
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y).tickSizeOuter(0));
 
         // axis labels
         svg.append("text")
@@ -199,6 +193,74 @@ function ageAndHappiness() {
             .attr("y", 20 + margin.top)
             .text('Scale of 0 (not at all) - 10 (completely)');
 
+    });
+}
+
+function miniChart() {
+
+    let box = document.getElementById('miniChart');
+    let width = box.offsetWidth;
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 10, bottom: 20, left: 30};
+    width = width - margin.left - margin.right;
+    var height = width * .5 - margin.top - margin.bottom;
+
+    // set the ranges
+    var x = d3.scaleLinear().range([margin.left / 3, width - margin.right]);
+    var y = d3.scaleLinear().range([height, 0]);
+
+    // append the svg obgect to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#miniChart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Get the data
+    d3.csv("data/age_and_happiness_mock.csv").then(function(data) {
+
+        // format the data
+        data.forEach(function(d) {
+            d.Q2 = +d.Q2;
+            d.happiness = +d.happiness;
+        });
+
+        // Scale the range of the data
+        x.domain(d3.extent(data, function(d) { return d.Q2; }));
+        y.domain([0, d3.max(data, function(d) { return d.happiness; })]);
+        
+        // Add the scatterplot
+        svg.selectAll("dot")
+        .data(data)
+        .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d) { return x(d.Q2); })
+        .attr("cy", function(d) { return y(d.happiness); })
+        .style('fill', 'rgb(25,50,140)')
+        .style('opacity', 0.7);
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .attr("class", "mockAxis")
+            .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
+
+        // Add the Y Axis
+        svg.append("g")
+            .attr("class", "mockAxis")
+            .call(d3.axisLeft(y).ticks(3).tickSizeOuter(0));
+
+        // axis labels
+        svg.append("text")
+            .attr("class", "x-axis-label")
+            .style('fill', 'gray')
+            .style('font-size', '14px')
+            .attr("x", width - margin.right)
+            .attr("y", height - 5)
+            .text("Age");
     });
 }
 
@@ -293,6 +355,7 @@ function packedCountryCircles() {
 function main() {
     map();
     ageAndHappiness();
+    miniChart();
     packedCountryCircles();
 
     new Waypoint({
