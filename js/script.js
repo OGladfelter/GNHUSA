@@ -334,7 +334,7 @@ function packedCountryCircles() {
             .attr("stroke", "black")
             .style("stroke-width", 1)
             .on("mouseover", function(event, d) {
-                tooltip.html(d.name)
+                tooltip.html(d.name + "<br>" + d.value.toFixed(1) + "%")
                 .style('left', d.x + 'px')
                     .style('top', d.y + 'px')
                     .transition()
