@@ -280,22 +280,29 @@ function packedCountryCircles() {
     const theirAnswers = ["China","India","United States","Indonesia","Pakistan","Nigeria","Brazil","Bangladesh","Russia","Mexico","Japan","Ethiopia","Philippines","Egypt","Vietnam","DR Congo","Iran","Turkey","Germany","France","United Kingdom","Thailand","South Africa","Tanzania","Italy","Myanmar","South Korea","Colombia","Kenya","Spain","Argentina","Algeria","Sudan","Uganda","Iraq","Ukraine","Canada","Poland","Morocco","Uzbekistan","Saudi Arabia","Peru","Angola","Afghanistan","Malaysia","Mozambique","Ghana","Yemen","Ivory Coast","Nepal","Venezuela","Madagascar","Australia","North Korea","Cameroon","Niger","Taiwan","Sri Lanka","Burkina Faso","Malawi","Mali","Chile","Kazakhstan","Romania","Zambia","Syria","Ecuador","Netherlands","Senegal","Guatemala","Chad","Somalia","Cambodia","Zimbabwe","South Sudan","Rwanda","Guinea","Burundi","Benin","Bolivia","Tunisia","Haiti","Belgium","Jordan","Cuba","Dominican Republic","Czech Republic","Sweden","Greece","Portugal","Azerbaijan","Hungary","Israel","Honduras","Tajikistan","United Arab Emirates","Belarus","Papua New Guinea","Austria","Switzerland","Sierra Leone","Togo","Hong Kong (China)","Paraguay","Laos","Libya","El Salvador","Serbia","Lebanon","Kyrgyzstan","Nicaragua","Bulgaria","Turkmenistan","Denmark","Congo","Central African Republic","Finland","Singapore","Norway","Slovakia","Palestine","Costa Rica","New Zealand","Ireland","Kuwait","Liberia","Oman","Panama","Mauritania","Croatia","Georgia","Eritrea","Uruguay","Mongolia","Bosnia and Herzegovina","Puerto Rico (United States)","Armenia","Lithuania","Albania","Qatar","Jamaica","Moldova","Namibia","Gambia","Botswana","Gabon","Lesotho","Slovenia","Latvia","North Macedonia","Kosovo","Guinea-Bissau","Equatorial Guinea","Bahrain","Trinidad and Tobago","Estonia","East Timor","Mauritius","Eswatini","Djibouti","Cyprus","Fiji","Comoros","Bhutan","Guyana","Solomon Islands","Macau (China)","Luxembourg","Montenegro","Western Sahara","Suriname","Cape Verde","Malta","Belize","Brunei","Bahamas","Maldives","Northern Cyprus","Iceland","Transnistria","Vanuatu","Barbados","French Polynesia (France)","New Caledonia (France)","Abkhazia","São Tomé and Príncipe","Samoa","Saint Lucia","Guam (United States)","Curaçao (Netherlands)","Artsakh","Kiribati","Grenada","Aruba (Netherlands)","Saint Vincent and the Grenadines","Jersey (British Crown Dependency)","Micronesia","Tonga","Antigua and Barbuda","Seychelles","U.S. Virgin Islands (United States)","Isle of Man (British Crown Dependency)","Andorra","Dominica","Cayman Islands (United Kingdom)","Bermuda (United Kingdom)","Guernsey (British Crown Dependency)","Greenland (Denmark)","Marshall Islands","Saint Kitts and Nevis","Faroe Islands (Denmark)","South Ossetia","American Samoa (United States)","Northern Mariana Islands (United States)","Turks and Caicos Islands (United Kingdom)","Sint Maarten (Netherlands)","Liechtenstein","Monaco","Gibraltar (United Kingdom)","San Marino","Saint Martin (France)","Åland (Finland)","British Virgin Islands (United Kingdom)","Palau","Cook Islands","Anguilla (United Kingdom)","Nauru","Wallis and Futuna (France)","Tuvalu","Saint Barthélemy (France)","Saint Helena, Ascension and Tristan da Cunha (United Kingdom)","Saint Pierre and Miquelon (France)","Montserrat (United Kingdom)","Falkland Islands (United Kingdom)","Christmas Island (Australia)","Norfolk Island (Australia)","Niue","Tokelau (New Zealand)","Vatican City","Cocos (Keeling) Islands (Australia)","Pitcairn Islands (United Kingdom)"];
     const myAnswers = ['Prussia...?', "Is it 'England' or 'Britain'?", "I think we're at war with this one?", "The one I live in", "They taught us propaganda about this one in 2nd grade"];
 
-    const data = [];
-    const numCountries = 195;
-
-    for (let i = 0; i < 195 * .95; i++) {
-        data.push({'name':theirAnswers[i], 'group':1});
-    }
-    for (let i = 0; i < 195 * .75; i++) {
-        data.push({'name':theirAnswers[i], 'group':2});
-    }
-    for (let i = 0; i < 195 * .5; i++) {
-        data.push({'name':theirAnswers[i], 'group':3});
-    }
-    for (let i = 0; i < 195 * .1; i++) {
-        data.push({'name':myAnswers[i % myAnswers.length], 'group':4});
-    }
-
+    const data = [
+        {
+            'name': 'Family',
+            'value': 45.06,
+            'group': 1
+        },
+        {
+            'name': 'Religion',
+            'value': 4.54,
+            'group': 2
+        },
+        {
+            'name': 'Finances',
+            'value': 6.18,
+            'group': 3
+        },
+        {
+            'name': 'Health',
+            'value': 6.32,
+            'group': 4
+        },
+    ];
+    
     // A scale that gives a Y target position for each group
     const y = d3.scaleOrdinal()
         .domain([1, 2, 3, 4])
@@ -306,6 +313,11 @@ function packedCountryCircles() {
         .domain([1, 2, 3, 4])
         .range([ "#26f0f1", "#e75a7c", "#5438dc", "#f0b67f"]);
 
+    // A size scale
+    const size = d3.scaleLinear()
+        .domain([0, 100])
+        .range([10, 100]);
+
     const tooltip = d3.select("#tooltip");
 
     // Initialize the circle: all located at the center of the svg area
@@ -313,13 +325,12 @@ function packedCountryCircles() {
         .selectAll("circle")
         .data(data)
         .join("circle")
-            .attr("r", 5)
+            .attr("r", d => size(d.value))
             .attr("cx", width / 2)
             .attr("cy", height / 2)
             .style("fill", d => color(d.group))
             .attr('class', d => 'countryCircle' + d.group)
-            .style('opacity', 0)
-            // .style("fill-opacity", .75)
+            .style('opacity', 1)
             .attr("stroke", "black")
             .style("stroke-width", 1)
             .on("mouseover", function(event, d) {
@@ -337,9 +348,9 @@ function packedCountryCircles() {
     // Features of the forces applied to the nodes:
     var simulation = d3.forceSimulation()
         .force("x", d3.forceX().strength(0.05).x(width / 2 ))
-        .force("y", d3.forceY().strength(5).y(d => y(d.group)))
+        .force("y", d3.forceY().strength(0.05).y(height / 2 ))
         .force("charge", d3.forceManyBody().strength(1)) // Nodes are attracted one each other of value is > 0
-        .force("collide", d3.forceCollide().strength(.05).radius(5).iterations(1)) // Force that avoids circle overlapping
+        .force("collide", d3.forceCollide().strength(2).radius(50).iterations(20)) // Force that avoids circle overlapping
 
     // Apply these forces to the nodes and update their positions.
     // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
@@ -358,38 +369,38 @@ function main() {
     miniChart();
     packedCountryCircles();
 
-    new Waypoint({
-        element: document.getElementById('countryStep1'),
-        handler: function(direction) {
-            const opacity = direction == 'down' ? .75 : 0;
-            d3.selectAll('.countryCircle1').transition().duration(1000).style('opacity', opacity);
-        },
-        offset: '50%'
-    });
-    new Waypoint({
-        element: document.getElementById('countryStep2'),
-        handler: function(direction) {
-            const opacity = direction == 'down' ? .75 : 0;
-            d3.selectAll('.countryCircle2').transition().duration(1000).style('opacity', opacity);
-        },
-        offset: '50%'
-    });
-    new Waypoint({
-        element: document.getElementById('countryStep3'),
-        handler: function(direction) {
-            const opacity = direction == 'down' ? .75 : 0;
-            d3.selectAll('.countryCircle3').transition().duration(1000).style('opacity', opacity);
-        },
-        offset: '50%'
-    });
-    new Waypoint({
-        element: document.getElementById('countryStep4'),
-        handler: function(direction) {
-            const opacity = direction == 'down' ? .75 : 0;
-            d3.selectAll('.countryCircle4').transition().duration(1000).style('opacity', opacity);
-        },
-        offset: '50%'
-    });
+    // new Waypoint({
+    //     element: document.getElementById('countryStep1'),
+    //     handler: function(direction) {
+    //         const opacity = direction == 'down' ? .75 : 0;
+    //         d3.selectAll('.countryCircle1').transition().duration(1000).style('opacity', opacity);
+    //     },
+    //     offset: '50%'
+    // });
+    // new Waypoint({
+    //     element: document.getElementById('countryStep2'),
+    //     handler: function(direction) {
+    //         const opacity = direction == 'down' ? .75 : 0;
+    //         d3.selectAll('.countryCircle2').transition().duration(1000).style('opacity', opacity);
+    //     },
+    //     offset: '50%'
+    // });
+    // new Waypoint({
+    //     element: document.getElementById('countryStep3'),
+    //     handler: function(direction) {
+    //         const opacity = direction == 'down' ? .75 : 0;
+    //         d3.selectAll('.countryCircle3').transition().duration(1000).style('opacity', opacity);
+    //     },
+    //     offset: '50%'
+    // });
+    // new Waypoint({
+    //     element: document.getElementById('countryStep4'),
+    //     handler: function(direction) {
+    //         const opacity = direction == 'down' ? .75 : 0;
+    //         d3.selectAll('.countryCircle4').transition().duration(1000).style('opacity', opacity);
+    //     },
+    //     offset: '50%'
+    // });
 
     var rellax = new Rellax('.rellax');
 }
