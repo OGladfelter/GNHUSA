@@ -84,6 +84,11 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
 }
 
 p, span { font-size: 20px; font-family: Georgia, "Sans-serif", serif; }
+span.insideHeader {
+    font-size: inherit;
+    font-family: inherit;
+    opacity: inherit;
+}
 h1 { font-size: 64px; margin: 40px 10px 30px 10px; font-weight: normal; line-height: 72px;}
 h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold; font-weight: normal; line-height: 38px;}
 h3 { font-size: 18px; margin: 50px 0px 5px 0px; font-weight: bold; line-height: 24px;}

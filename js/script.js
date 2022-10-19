@@ -485,6 +485,8 @@ function lollipop() {
                 if (direction == 'down') {
                     const delay = 1000; // prevents bug if user scrolls too fast
 
+                    d3.select("#hiddenTitle").transition().duration(1000).delay(delay).style('opacity', 1);
+
                     const familyOlder = 48.44;
                     const familyYounger = 41.0;
                     d3.select("#FamilyLine").transition().duration(1000).delay(delay).attr('x1', x(familyYounger)).attr('x2', x(familyOlder));
@@ -510,6 +512,8 @@ function lollipop() {
                     d3.select("#ReligionCircleYoung").transition().duration(1000).delay(delay).attr('cx', x(religionYounger)).attr('r', 8); // show new circle
                 }
                 else {
+                    d3.select("#hiddenTitle").transition().duration(1000).style('opacity', 0);
+
                     const familyOverall = 45.06;
                     d3.select("#FamilyLine").transition().duration(1000).attr('x1', x(0)).attr('x2', x(familyOverall));
                     d3.select("#FamilyCircle").transition().duration(1000).attr('cx', x(familyOverall)); //  now representing the all ages again
