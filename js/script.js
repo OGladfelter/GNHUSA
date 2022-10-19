@@ -404,11 +404,12 @@ function lollipop() {
             .data(data)
             .enter()
             .append("line")
-            .attr("x1", function(d) { return x(d.value); })
+            .attr("x1", function(d) { return x(0); }) // start not showing line for animation later
             .attr("x2", x(0))
             .attr("y1", function(d) { return y(d.theme); })
             .attr("y2", function(d) { return y(d.theme); })
             .attr("stroke", "black")
+            .attr('id', function(d) { return d.theme + "Line"; });
 
         const color = d3.scaleOrdinal()
             .domain(['Health', 'Family', 'Finances', 'Religion'])
@@ -419,12 +420,50 @@ function lollipop() {
             .data(data)
             .enter()
             .append("circle")
-            .attr("cx", function(d) { return x(d.value); })
+            .attr("cx", function(d) { return x(0); })  // start not showing line for animation later
             .attr("cy", function(d) { return y(d.theme); })
-            .attr("r", "8")
+            .attr("r", 0)  // start not showing line for animation later
             .style("fill", d => color(d.theme))
-            .attr("stroke", "black");
-    })
+            .attr("stroke", "black")
+            .attr('id', function(d) { return d.theme + "Circle"; });
+
+        new Waypoint({
+            element: document.getElementById('family'),
+            handler: function(direction) {
+                const value = direction == 'down' ? 45.06 : 0;
+                const size = direction == 'down' ? 8 : 0;
+                d3.select("#FamilyLine").transition().duration(1000).attr('x1', x(value));
+                d3.select("#FamilyCircle").transition().duration(1000).attr('cx', x(value)).attr('r', size);
+            },
+            offset: '50%'
+        });
+        new Waypoint({
+            element: document.getElementById('religion'),
+            handler: function(direction) {
+                if (direction == 'down') {
+                    d3.select("#HealthLine").transition().duration(1000).attr('x1', x(6.32));
+                    d3.select("#HealthCircle").transition().duration(1000).attr('cx', x(6.32)).attr('r', 8);
+
+                    d3.select("#FinancesLine").transition().duration(1000).delay(250).attr('x1', x(6.18));
+                    d3.select("#FinancesCircle").transition().duration(1000).delay(250).attr('cx', x(6.18)).attr('r', 8);
+
+                    d3.select("#ReligionLine").transition().duration(1000).delay(500).attr('x1', x(4.54));
+                    d3.select("#ReligionCircle").transition().duration(1000).delay(500).attr('cx', x(4.54)).attr('r', 8);
+                }
+                else {
+                    d3.select("#HealthLine").transition().duration(1000).delay(500).attr('x1', x(0));
+                    d3.select("#HealthCircle").transition().duration(1000).delay(500).attr('cx', x(0)).attr('r', 0);
+
+                    d3.select("#FinancesLine").transition().duration(1000).delay(250).attr('x1', x(0));
+                    d3.select("#FinancesCircle").transition().duration(1000).delay(250).attr('cx', x(0)).attr('r', 0);
+
+                    d3.select("#ReligionLine").transition().duration(1000).delay(0).attr('x1', x(0));
+                    d3.select("#ReligionCircle").transition().duration(1000).delay(0).attr('cx', x(0)).attr('r', 0);
+                }
+            },
+            offset: '50%'
+        });
+    });
 }
 
 function main() {
@@ -432,25 +471,6 @@ function main() {
     ageAndHappiness();
     miniChart();
     lollipop();
-
-    new Waypoint({
-        element: document.getElementById('religion'),
-        handler: function(direction) {
-            const opacity = direction == 'down' ? .75 : 0;
-            d3.select('#religionCircle').transition().duration(1000).style('opacity', opacity);
-            d3.select('#financesCircle').transition().duration(1000).delay(500).style('opacity', opacity);
-            d3.select('#healthCircle').transition().duration(1000).delay(1000).style('opacity', opacity);
-        },
-        offset: '50%'
-    });
-    new Waypoint({
-        element: document.getElementById('family'),
-        handler: function(direction) {
-            const opacity = direction == 'down' ? .75 : 0;
-            d3.select('#familyCircle').transition().duration(1000).style('opacity', opacity);
-        },
-        offset: '50%'
-    });
 
     var rellax = new Rellax('.rellax');
 }
