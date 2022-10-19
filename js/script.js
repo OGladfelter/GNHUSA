@@ -169,12 +169,12 @@ function ageAndHappiness() {
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
             .attr("class", "axis")
-            .call(d3.axisBottom(x).tickSizeOuter(0));
+            .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
 
         // Add the Y Axis
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).tickSizeOuter(0));
+            .call(d3.axisLeft(y).ticks(3).tickSizeOuter(0));
 
         // axis labels
         svg.append("text")
@@ -264,14 +264,14 @@ function miniChart() {
     });
 }
 
-function packedCountryCircles() {
+function packedCircles() {
     // set the dimensions and margins of the graph
-    let box = document.getElementById('packedCountryCircles');
+    let box = document.getElementById('packedCircles');
     let width = box.offsetWidth;
     const height = width * 1.25;
 
     // append the svg object to the body of the page
-    const svg = d3.select("#packedCountryCircles")
+    const svg = d3.select("#packedCircles")
     .append("svg")
         .attr("width", width)
         .attr("height", height);
@@ -330,9 +330,12 @@ function packedCountryCircles() {
             .attr("cy", height / 2)
             .style("fill", d => color(d.group))
             .attr('class', d => 'countryCircle' + d.group)
-            .style('opacity', 1)
+            .style('opacity', 0)
             .attr("stroke", "black")
             .style("stroke-width", 1)
+            .attr("id", function(d) {
+                return d.name.toLowerCase() + 'Circle';
+            })
             .on("mouseover", function(event, d) {
                 tooltip.html(d.name + "<br>" + d.value.toFixed(1) + "%")
                 .style('left', d.x + 'px')
@@ -367,40 +370,42 @@ function main() {
     map();
     ageAndHappiness();
     miniChart();
-    packedCountryCircles();
+    packedCircles();
 
+    new Waypoint({
+        element: document.getElementById('religion'),
+        handler: function(direction) {
+            const opacity = direction == 'down' ? .75 : 0;
+            d3.select('#religionCircle').transition().duration(1000).style('opacity', opacity);
+            d3.select('#financesCircle').transition().duration(1000).delay(500).style('opacity', opacity);
+            d3.select('#healthCircle').transition().duration(1000).delay(1000).style('opacity', opacity);
+        },
+        offset: '50%'
+    });
     // new Waypoint({
-    //     element: document.getElementById('countryStep1'),
+    //     element: document.getElementById('finances'),
     //     handler: function(direction) {
     //         const opacity = direction == 'down' ? .75 : 0;
-    //         d3.selectAll('.countryCircle1').transition().duration(1000).style('opacity', opacity);
+    //         d3.select('#financesCircle').transition().duration(1000).style('opacity', opacity);
     //     },
     //     offset: '50%'
     // });
     // new Waypoint({
-    //     element: document.getElementById('countryStep2'),
+    //     element: document.getElementById('health'),
     //     handler: function(direction) {
     //         const opacity = direction == 'down' ? .75 : 0;
-    //         d3.selectAll('.countryCircle2').transition().duration(1000).style('opacity', opacity);
+    //         d3.select('#healthCircle').transition().duration(1000).style('opacity', opacity);
     //     },
     //     offset: '50%'
     // });
-    // new Waypoint({
-    //     element: document.getElementById('countryStep3'),
-    //     handler: function(direction) {
-    //         const opacity = direction == 'down' ? .75 : 0;
-    //         d3.selectAll('.countryCircle3').transition().duration(1000).style('opacity', opacity);
-    //     },
-    //     offset: '50%'
-    // });
-    // new Waypoint({
-    //     element: document.getElementById('countryStep4'),
-    //     handler: function(direction) {
-    //         const opacity = direction == 'down' ? .75 : 0;
-    //         d3.selectAll('.countryCircle4').transition().duration(1000).style('opacity', opacity);
-    //     },
-    //     offset: '50%'
-    // });
+    new Waypoint({
+        element: document.getElementById('family'),
+        handler: function(direction) {
+            const opacity = direction == 'down' ? .75 : 0;
+            d3.select('#familyCircle').transition().duration(1000).style('opacity', opacity);
+        },
+        offset: '50%'
+    });
 
     var rellax = new Rellax('.rellax');
 }
