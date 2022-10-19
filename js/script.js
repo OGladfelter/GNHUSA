@@ -1,6 +1,6 @@
 const primaryColor = '#0024d9';
-const secondaryColor = 'red';
-const highlightColor = 'cyan';
+const primaryColorLight = '#38a3f5'; // low end of map; younger ages in age analysis
+const primaryColorDark = '#0007c9'; // high end of map
 
 function map() {
     // add svg
@@ -36,7 +36,7 @@ function map() {
 
             const colorScale = d3.scaleLinear()
                 .domain([Math.min(...data.values()), Math.max(...data.values())])
-                .range(['#007bff', '#0007c9']);
+                .range([primaryColorLight, primaryColorDark]);
             // confirm data is sorted by life sat
             var lifeSat = [...new Map([...data.entries()].sort((a, b) => b[1] - a[1]))];
 
@@ -439,7 +439,7 @@ function lollipop() {
             .attr("cx", function(d) { return x(0); })  // start not showing line for animation later
             .attr("cy", function(d) { return y(d.theme); })
             .attr("r", 0)  // start not showing line for animation later
-            .style("fill", '#007bff')
+            .style("fill", primaryColorLight)
             .attr("stroke", "black")
             .attr('id', function(d) { return d.theme + "CircleYoung"; });
 
