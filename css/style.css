@@ -37,7 +37,7 @@ body {
     width: 75%;
     margin: auto;
     margin-bottom: 50vh;
-    border: 1px black solid;
+    /* border: 1px black solid; */
 }
 article {
     text-align: left;
@@ -89,8 +89,8 @@ span.insideHeader {
     font-family: inherit;
     opacity: inherit;
 }
-h1 { font-size: 64px; margin: 40px 10px 30px 10px; font-weight: normal; line-height: 72px;}
-h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold; font-weight: normal; line-height: 38px;}
+h1 { font-size: 64px; margin: 40px 10px 30px 10px; font-weight: normal; line-height: 72px; font-family: "helvetica", "open sans";}
+h2 { text-align:center; font-size: 32px; margin: 10px 10px 0px 10px; font-weight: bold; line-height: 38px; font-family: "helvetica", "open sans";}
 h3 { font-size: 18px; margin: 50px 0px 5px 0px; font-weight: bold; line-height: 24px;}
 li {
     font-size: 20px; font-family: Georgia, "Sans-serif", serif;
