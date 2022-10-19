@@ -276,10 +276,6 @@ function packedCircles() {
         .attr("width", width)
         .attr("height", height);
 
-    // names for the tooltip
-    const theirAnswers = ["China","India","United States","Indonesia","Pakistan","Nigeria","Brazil","Bangladesh","Russia","Mexico","Japan","Ethiopia","Philippines","Egypt","Vietnam","DR Congo","Iran","Turkey","Germany","France","United Kingdom","Thailand","South Africa","Tanzania","Italy","Myanmar","South Korea","Colombia","Kenya","Spain","Argentina","Algeria","Sudan","Uganda","Iraq","Ukraine","Canada","Poland","Morocco","Uzbekistan","Saudi Arabia","Peru","Angola","Afghanistan","Malaysia","Mozambique","Ghana","Yemen","Ivory Coast","Nepal","Venezuela","Madagascar","Australia","North Korea","Cameroon","Niger","Taiwan","Sri Lanka","Burkina Faso","Malawi","Mali","Chile","Kazakhstan","Romania","Zambia","Syria","Ecuador","Netherlands","Senegal","Guatemala","Chad","Somalia","Cambodia","Zimbabwe","South Sudan","Rwanda","Guinea","Burundi","Benin","Bolivia","Tunisia","Haiti","Belgium","Jordan","Cuba","Dominican Republic","Czech Republic","Sweden","Greece","Portugal","Azerbaijan","Hungary","Israel","Honduras","Tajikistan","United Arab Emirates","Belarus","Papua New Guinea","Austria","Switzerland","Sierra Leone","Togo","Hong Kong (China)","Paraguay","Laos","Libya","El Salvador","Serbia","Lebanon","Kyrgyzstan","Nicaragua","Bulgaria","Turkmenistan","Denmark","Congo","Central African Republic","Finland","Singapore","Norway","Slovakia","Palestine","Costa Rica","New Zealand","Ireland","Kuwait","Liberia","Oman","Panama","Mauritania","Croatia","Georgia","Eritrea","Uruguay","Mongolia","Bosnia and Herzegovina","Puerto Rico (United States)","Armenia","Lithuania","Albania","Qatar","Jamaica","Moldova","Namibia","Gambia","Botswana","Gabon","Lesotho","Slovenia","Latvia","North Macedonia","Kosovo","Guinea-Bissau","Equatorial Guinea","Bahrain","Trinidad and Tobago","Estonia","East Timor","Mauritius","Eswatini","Djibouti","Cyprus","Fiji","Comoros","Bhutan","Guyana","Solomon Islands","Macau (China)","Luxembourg","Montenegro","Western Sahara","Suriname","Cape Verde","Malta","Belize","Brunei","Bahamas","Maldives","Northern Cyprus","Iceland","Transnistria","Vanuatu","Barbados","French Polynesia (France)","New Caledonia (France)","Abkhazia","São Tomé and Príncipe","Samoa","Saint Lucia","Guam (United States)","Curaçao (Netherlands)","Artsakh","Kiribati","Grenada","Aruba (Netherlands)","Saint Vincent and the Grenadines","Jersey (British Crown Dependency)","Micronesia","Tonga","Antigua and Barbuda","Seychelles","U.S. Virgin Islands (United States)","Isle of Man (British Crown Dependency)","Andorra","Dominica","Cayman Islands (United Kingdom)","Bermuda (United Kingdom)","Guernsey (British Crown Dependency)","Greenland (Denmark)","Marshall Islands","Saint Kitts and Nevis","Faroe Islands (Denmark)","South Ossetia","American Samoa (United States)","Northern Mariana Islands (United States)","Turks and Caicos Islands (United Kingdom)","Sint Maarten (Netherlands)","Liechtenstein","Monaco","Gibraltar (United Kingdom)","San Marino","Saint Martin (France)","Åland (Finland)","British Virgin Islands (United Kingdom)","Palau","Cook Islands","Anguilla (United Kingdom)","Nauru","Wallis and Futuna (France)","Tuvalu","Saint Barthélemy (France)","Saint Helena, Ascension and Tristan da Cunha (United Kingdom)","Saint Pierre and Miquelon (France)","Montserrat (United Kingdom)","Falkland Islands (United Kingdom)","Christmas Island (Australia)","Norfolk Island (Australia)","Niue","Tokelau (New Zealand)","Vatican City","Cocos (Keeling) Islands (Australia)","Pitcairn Islands (United Kingdom)"];
-    const myAnswers = ['Prussia...?', "Is it 'England' or 'Britain'?", "I think we're at war with this one?", "The one I live in", "They taught us propaganda about this one in 2nd grade"];
-
     const data = [
         {
             'name': 'Family',
@@ -366,11 +362,76 @@ function packedCircles() {
         });
 }
 
+function lollipop() {
+    const margin = {top: 10, right: 30, bottom: 30, left: 70};
+    let box = document.getElementById('packedCircles');
+    let width = box.offsetWidth - margin.left - margin.right;
+    const height = (width * 1.25) - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    const svg = d3.select("#lollipop")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    // Parse the Data
+    d3.csv("data/themes.csv").then( function(data) {
+
+        // Add X axis
+        const x = d3.scaleLinear()
+            .domain([0, 50])
+            .range([ 0, width]);
+            
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0).tickFormat(function(d, i) { if (i == 0) return `${d}%`; else return d}));
+
+        // Y axis
+        const y = d3.scaleBand()
+            .range([ 0, height ])
+            .domain(data.map(function(d) { return d.theme; }))
+            .padding(1);
+        svg.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0))
+
+
+        // Lines
+        svg.selectAll("myline")
+            .data(data)
+            .enter()
+            .append("line")
+            .attr("x1", function(d) { return x(d.value); })
+            .attr("x2", x(0))
+            .attr("y1", function(d) { return y(d.theme); })
+            .attr("y2", function(d) { return y(d.theme); })
+            .attr("stroke", "black")
+
+        const color = d3.scaleOrdinal()
+            .domain(['Health', 'Family', 'Finances', 'Religion'])
+            .range([ "#f0b67f", "#26f0f1", "#5438dc", "#e75a7c"]);
+
+        // Circles
+        svg.selectAll("mycircle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d) { return x(d.value); })
+            .attr("cy", function(d) { return y(d.theme); })
+            .attr("r", "8")
+            .style("fill", d => color(d.theme))
+            .attr("stroke", "black");
+    })
+}
+
 function main() {
     map();
     ageAndHappiness();
     miniChart();
-    packedCircles();
+    lollipop();
 
     new Waypoint({
         element: document.getElementById('religion'),
@@ -382,22 +443,6 @@ function main() {
         },
         offset: '50%'
     });
-    // new Waypoint({
-    //     element: document.getElementById('finances'),
-    //     handler: function(direction) {
-    //         const opacity = direction == 'down' ? .75 : 0;
-    //         d3.select('#financesCircle').transition().duration(1000).style('opacity', opacity);
-    //     },
-    //     offset: '50%'
-    // });
-    // new Waypoint({
-    //     element: document.getElementById('health'),
-    //     handler: function(direction) {
-    //         const opacity = direction == 'down' ? .75 : 0;
-    //         d3.select('#healthCircle').transition().duration(1000).style('opacity', opacity);
-    //     },
-    //     offset: '50%'
-    // });
     new Waypoint({
         element: document.getElementById('family'),
         handler: function(direction) {
