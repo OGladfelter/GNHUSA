@@ -1,6 +1,6 @@
 const primaryColor = '#0024d9';
-const primaryColorLight = '#38a3f5'; // low end of map; younger ages in age analysis
-const primaryColorDark = '#0007c9'; // high end of map
+const primaryColorLight = '#56cdfc'; // low end of map; younger ages in age analysis
+const primaryColorDark = '#0006b8'; // high end of map
 
 function map() {
     // add svg
@@ -135,12 +135,12 @@ function ageAndHappiness() {
         // format the data
         data.forEach(function(d) {
             d.Q2 = +d.Q2;
-            d.happiness = +d.happiness;
+            d.lifeSat = +d.lifeSat;
         });
 
         // Scale the range of the data
         x.domain(d3.extent(data, function(d) { return d.Q2; }));
-        y.domain([0, d3.max(data, function(d) { return d.happiness; })]);
+        y.domain([0, d3.max(data, function(d) { return d.lifeSat; })]);
         
         const tooltip = d3.select("#tooltip0");
 
@@ -150,11 +150,11 @@ function ageAndHappiness() {
         .enter().append("circle")
         .attr("r", 3)
         .attr("cx", function(d) { return x(d.Q2); })
-        .attr("cy", function(d) { return y(d.happiness); })
+        .attr("cy", function(d) { return y(d.lifeSat); })
         .style('fill', primaryColor)
         .style('opacity', 0.9)
         .on("mouseover", function(event, d) {
-            tooltip.html('The average happiness score for respondents aged <b>' + d.Q2 + " years</b> \n is <b>" + d.happiness.toFixed(1) + "</b>")
+            tooltip.html('The average life satisfaction score for respondents aged <b>' + d.Q2 + " years</b> \n is <b>" + d.lifeSat.toFixed(1) + "</b>")
                 .style('left', event.pageX + 5 + 'px')
                 .style('top', event.pageY + 10 + 'px')
                 .transition()
@@ -186,7 +186,7 @@ function ageAndHappiness() {
             .attr("class", "y-axis-label")
             .attr("x", 10)
             .attr("y", 0 + margin.top)
-            .text('"How happy did you feel yesterday?"');
+            .text('"How satisfied are you with your life?"');
         svg.append("text")
             .attr("class", "y-axis-sublabel")
             .attr("x", 14)

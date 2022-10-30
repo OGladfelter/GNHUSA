@@ -190,6 +190,10 @@ div.tooltip {
     /* transform: translateX(-50%, 0px, 0px) !important; this would turn off rellax */
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .fakeButton {
     display: inline-block;
     background: white;
