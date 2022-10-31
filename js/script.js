@@ -106,6 +106,63 @@ function map() {
         });
 }
 
+function barRanker() {
+    const margin = {top: 20, right: 30, bottom: 40, left: 200}
+
+    // add svg
+    let box = document.getElementById('barChart');
+    let width = box.offsetWidth - margin.left - margin.right;
+    const height = width * 1.5 - margin.top - margin.bottom;
+    const svg = d3.select("#barChart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    // Parse the Data
+    d3.csv("data/stateData.csv").then( function(data) {
+
+        const colorScale = d3.scaleLinear()
+            .domain(d3.extent(data, function(d) { return d.lifeSat; }))
+            .range([primaryColorLight, primaryColorDark]);
+
+        // Add X axis
+        const x = d3.scaleLinear()
+        .domain([0, 10])
+        .range([ 0, width]);
+        svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(0, ${height})`)
+        .call(d3.axisBottom(x));
+
+        // Y axis
+        const y = d3.scaleBand()
+        .range([ 0, height ])
+        .domain(data.map(d => d.state))
+        .padding(.1);
+        svg.append("g")
+        .attr("class", "axis")
+        .call(d3.axisLeft(y))
+        //.call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0))
+        // .selectAll("text")
+        //     .style("text-anchor", "start")
+        //     .style("transform", `translate(-${margin.left / 2}px, 0`);
+
+        //Bars
+        svg.selectAll("myRect")
+        .data(data)
+        .join("rect")
+        .attr("x", x(0) )
+        .attr("y", d => y(d.state))
+        .attr("width", d => x(d.lifeSat))
+        .attr("height", y.bandwidth())
+        .attr("fill", d => colorScale(d.lifeSat))
+        .style('opacity', 0.75);
+
+    });
+}
+
 function ageAndHappiness() {
 
     let box = document.getElementById('ageAndHappinessScatterplot');
@@ -263,104 +320,6 @@ function miniChart() {
             .text("Age");
     });
 }
-
-// function packedCircles() {
-//     // set the dimensions and margins of the graph
-//     let box = document.getElementById('packedCircles');
-//     let width = box.offsetWidth;
-//     const height = width * 1.25;
-
-//     // append the svg object to the body of the page
-//     const svg = d3.select("#packedCircles")
-//     .append("svg")
-//         .attr("width", width)
-//         .attr("height", height);
-
-//     const data = [
-//         {
-//             'name': 'Family',
-//             'value': 45.06,
-//             'group': 1
-//         },
-//         {
-//             'name': 'Religion',
-//             'value': 4.54,
-//             'group': 2
-//         },
-//         {
-//             'name': 'Finances',
-//             'value': 6.18,
-//             'group': 3
-//         },
-//         {
-//             'name': 'Health',
-//             'value': 6.32,
-//             'group': 4
-//         },
-//     ];
-    
-//     // A scale that gives a Y target position for each group
-//     const y = d3.scaleOrdinal()
-//         .domain([1, 2, 3, 4])
-//         .range([height * .1, height * .35, height * .6, height * .85])
-
-//     // A color scale
-//     const color = d3.scaleOrdinal()
-//         .domain([1, 2, 3, 4])
-//         .range([ "#26f0f1", "#e75a7c", "#5438dc", "#f0b67f"]);
-
-//     // A size scale
-//     const size = d3.scaleLinear()
-//         .domain([0, 100])
-//         .range([10, 100]);
-
-//     const tooltip = d3.select("#tooltip");
-
-//     // Initialize the circle: all located at the center of the svg area
-//     const node = svg.append("g")
-//         .selectAll("circle")
-//         .data(data)
-//         .join("circle")
-//             .attr("r", d => size(d.value))
-//             .attr("cx", width / 2)
-//             .attr("cy", height / 2)
-//             .style("fill", d => color(d.group))
-//             .attr('class', d => 'countryCircle' + d.group)
-//             .style('opacity', 0)
-//             .attr("stroke", "black")
-//             .style("stroke-width", 1)
-//             .attr("id", function(d) {
-//                 return d.name.toLowerCase() + 'Circle';
-//             })
-//             .on("mouseover", function(event, d) {
-//                 tooltip.html(d.name + "<br>" + d.value.toFixed(1) + "%")
-//                 .style('left', d.x + 'px')
-//                     .style('top', d.y + 'px')
-//                     .transition()
-//                     .duration(250)
-//                     .style('opacity', 1);
-//             })
-//             .on("mouseout", function() {
-//                 tooltip.transition().duration(250).style('opacity', 0);
-//             });
-
-//     // Features of the forces applied to the nodes:
-//     var simulation = d3.forceSimulation()
-//         .force("x", d3.forceX().strength(0.05).x(width / 2 ))
-//         .force("y", d3.forceY().strength(0.05).y(height / 2 ))
-//         .force("charge", d3.forceManyBody().strength(1)) // Nodes are attracted one each other of value is > 0
-//         .force("collide", d3.forceCollide().strength(2).radius(50).iterations(20)) // Force that avoids circle overlapping
-
-//     // Apply these forces to the nodes and update their positions.
-//     // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
-//     simulation
-//         .nodes(data)
-//         .on("tick", function(d){
-//         node
-//             .attr("cx", d => d.x)
-//             .attr("cy", d => d.y)
-//         });
-// }
 
 function lollipop() {
     const margin = {top: 10, right: 30, bottom: 30, left: 65};
@@ -542,6 +501,7 @@ function lollipop() {
 
 function main() {
     map();
+    barRanker();
     ageAndHappiness();
     miniChart();
     lollipop();
