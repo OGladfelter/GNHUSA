@@ -1,51 +1,51 @@
-state,lifeSat
-South Carolina,7.211538
-Kentucky,7.078431
-Delaware,7.075472
-New Jersey,6.960784
-Maryland,6.941176
-California,6.938776
-North Dakota,6.916667
-Alabama,6.811321
-Indiana,6.800000
-Illinois,6.764706
-Mississippi,6.764706
-Montana,6.764706
-Georgia,6.750000
-North Carolina,6.750000
-South Dakota,6.720000
-Florida,6.692308
-Minnesota,6.680000
-Tennessee,6.673077
-Texas,6.660000
-New York,6.647059
-Michigan,6.647059
-Utah,6.632653
-New Mexico,6.615385
-Wisconsin,6.604167
-Virginia,6.580000
-Colorado,6.560000
-Arizona,6.560000
-Hawaii,6.557692
-Wyoming,6.519231
-Missouri,6.509804
-Nebraska,6.480769
-Vermont,6.442308
-Iowa,6.420000
-Kansas,6.420000
-Connecticut,6.384615
-Idaho,6.360000
-Louisiana,6.313725
-New Hampshire,6.313725
-Maine,6.274510
-Alaska,6.265306
-Ohio,6.240000
-Pennsylvania,6.176471
-West Virginia,6.115385
-Nevada,6.081633
-Massachusetts,6.058824
-Washington,6.040000
-Oklahoma,5.961538
-Oregon,5.882353
-Rhode Island,5.811321
-Arkansas,5.784314
+state,lifeSat,rank
+South Carolina,7.211538,1
+Kentucky,7.078431,2
+Delaware,7.075472,3
+New Jersey,6.960784,4
+Maryland,6.941176,5
+California,6.938776,6
+North Dakota,6.916667,7
+Alabama,6.811321,8
+Indiana,6.800000,9
+Illinois,6.764706,10
+Mississippi,6.764706,11
+Montana,6.764706,12
+Georgia,6.750000,13
+North Carolina,6.750000,14
+South Dakota,6.720000,15
+Florida,6.692308,16
+Minnesota,6.680000,17
+Tennessee,6.673077,18
+Texas,6.660000,19
+New York,6.647059,20
+Michigan,6.647059,21
+Utah,6.632653,22
+New Mexico,6.615385,23
+Wisconsin,6.604167,24
+Virginia,6.580000,25
+Colorado,6.560000,26
+Arizona,6.560000,27
+Hawaii,6.557692,28
+Wyoming,6.519231,29
+Missouri,6.509804,30
+Nebraska,6.480769,31
+Vermont,6.442308,32
+Iowa,6.420000,33
+Kansas,6.420000,34
+Connecticut,6.384615,35
+Idaho,6.360000,36
+Louisiana,6.313725,37
+New Hampshire,6.313725,38
+Maine,6.274510,39
+Alaska,6.265306,40
+Ohio,6.240000,41
+Pennsylvania,6.176471,42
+West Virginia,6.115385,43
+Nevada,6.081633,44
+Massachusetts,6.058824,45
+Washington,6.040000,46
+Oklahoma,5.961538,47
+Oregon,5.882353,48
+Rhode Island,5.811321,49
+Arkansas,5.784314,50

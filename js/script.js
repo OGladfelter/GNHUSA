@@ -120,8 +120,15 @@ function barRanker() {
         .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+    const tooltip = d3.select("#tooltipBars");
+
     // Parse the Data
     d3.csv("data/stateData.csv").then( function(data) {
+
+        data.forEach(function(d) {
+            d.lifeSat = +d.lifeSat;
+            d.rank = +d.rank;
+        });
 
         const colorScale = d3.scaleLinear()
             .domain(d3.extent(data, function(d) { return d.lifeSat; }))
@@ -159,11 +166,18 @@ function barRanker() {
             .attr("height", y.bandwidth())
             .attr("fill", d => colorScale(d.lifeSat))
             .style('opacity', 0.75)
-            .on('mouseover', function() {
+            .on('mouseover', function(event, d, i) {
                 d3.select(this).style('fill', 'orange');
+                tooltip.html('State: ' + d.state + '<br>Rank: ' + d.rank + '<br> Average life satisfaction: ' + d.lifeSat.toFixed(1))
+                    .style('left', event.pageX + 5 + 'px')
+                    .style('top', event.pageY + 10 + 'px')
+                    .transition()
+                    .duration(250)
+                    .style('opacity', 1);
             }).on('mouseout', function(d) {
                 d3.select(this).style('fill', colorScale(d.lifeSat));
-            })
+                tooltip.transition().duration(250).style('opacity', 0);
+            });
 
         // text
         svg.selectAll(".barChartText")

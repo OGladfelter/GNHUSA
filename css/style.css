@@ -158,8 +158,8 @@ div.tooltip {
     position: absolute;
     text-align: center;
     min-width: 50px;
-    max-width: 200px;
-    padding: 5px;
+    max-width: 250px;
+    padding: 10px;
     font-size: 16px;
     background: white;
     border: 1px black solid;
