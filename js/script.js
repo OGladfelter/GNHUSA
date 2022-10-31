@@ -138,27 +138,42 @@ function barRanker() {
 
         // Y axis
         const y = d3.scaleBand()
-        .range([ 0, height ])
-        .domain(data.map(d => d.state))
-        .padding(.1);
+            .range([ 0, height ])
+            .domain(data.map(d => d.state))
+            .padding(.1);
         svg.append("g")
-        .attr("class", "axis")
-        .call(d3.axisLeft(y))
-        //.call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0))
-        // .selectAll("text")
-        //     .style("text-anchor", "start")
-        //     .style("transform", `translate(-${margin.left / 2}px, 0`);
+            .attr("class", "axis")
+            .call(d3.axisLeft(y))
+            //.call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0))
+            // .selectAll("text")
+            //     .style("text-anchor", "start")
+            //     .style("transform", `translate(-${margin.left / 2}px, 0`);
 
         //Bars
-        svg.selectAll("myRect")
-        .data(data)
-        .join("rect")
-        .attr("x", x(0) )
-        .attr("y", d => y(d.state))
-        .attr("width", d => x(d.lifeSat))
-        .attr("height", y.bandwidth())
-        .attr("fill", d => colorScale(d.lifeSat))
-        .style('opacity', 0.75);
+        svg.selectAll(".barChartRectangles")
+            .data(data)
+            .join("rect")
+            .attr("x", x(0) )
+            .attr("y", d => y(d.state))
+            .attr("width", d => x(d.lifeSat))
+            .attr("height", y.bandwidth())
+            .attr("fill", d => colorScale(d.lifeSat))
+            .style('opacity', 0.75)
+            .on('mouseover', function() {
+                d3.select(this).style('fill', 'orange');
+            }).on('mouseout', function(d) {
+                d3.select(this).style('fill', colorScale(d.lifeSat));
+            })
+
+        // text
+        svg.selectAll(".barChartText")
+            .data(data)
+            .join("text")
+            .attr("x", x(0) + 5 )
+            .attr("y", d => y(d.state) + (y.bandwidth() / 2))
+            .text(function(d, i) { return i + 1})
+            .style('alignment-baseline', 'central')
+            .style('fill', 'white');
 
     });
 }
