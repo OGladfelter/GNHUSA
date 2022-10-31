@@ -166,9 +166,9 @@ function barRanker() {
             .attr("height", y.bandwidth())
             .attr("fill", d => colorScale(d.lifeSat))
             .style('opacity', 0.75)
-            .on('mouseover', function(event, d, i) {
+            .on('mouseover', function(event, d) {
                 d3.select(this).style('fill', 'orange');
-                tooltip.html('State: ' + d.state + '<br>Rank: ' + d.rank + '<br> Average life satisfaction: ' + d.lifeSat.toFixed(1))
+                tooltip.html('State: ' + d.state + '<br>Rank: ' + d.rank + '<br> Avg life satisfaction: ' + d.lifeSat.toFixed(1))
                     .style('left', event.pageX + 5 + 'px')
                     .style('top', event.pageY + 10 + 'px')
                     .transition()
@@ -185,7 +185,7 @@ function barRanker() {
             .join("text")
             .attr("x", x(0) + 5 )
             .attr("y", d => y(d.state) + (y.bandwidth() / 2))
-            .text(function(d, i) { return i + 1})
+            .text(function(d) { return d.rank})
             .style('alignment-baseline', 'central')
             .style('fill', 'white');
 
