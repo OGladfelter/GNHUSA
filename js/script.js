@@ -30,7 +30,7 @@ function map() {
             let topo = loadData[0];
 
 
-            let mouseLeave = function() {
+            let resetMapColors = function() {
                 d3.selectAll(".state").style("opacity", 1);
             }
 
@@ -81,7 +81,7 @@ function map() {
                         }
                     }
                     else {
-                        mouseLeave();
+                        resetMapColors();
                     }
                 },
                 offset: '50%'
@@ -97,10 +97,25 @@ function map() {
                         }
                     }
                     else {
-                        mouseLeave();
+                        resetMapColors();
                     }
                 },
                 offset: '50%'
+            });
+            new Waypoint({
+                element: document.getElementById('finalMapStep'),
+                handler: function(direction) {
+                    if (direction == 'down') {
+                        resetMapColors();
+                    }
+                    else {
+                        d3.selectAll(".state").style("opacity", .3);
+                        for (let i = lifeSat.length - 1; i >= lifeSat.length - 5; i--) {
+                            const row = lifeSat[i];
+                            document.getElementById(row[0]).style.opacity = 1;
+                        }
+                    }
+                },
             });
 
         });
