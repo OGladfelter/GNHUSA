@@ -161,7 +161,7 @@ function barRanker() {
         svg.append("g")
         .attr("class", "axis")
         .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x).tickSizeOuter(0));
 
         // Y axis
         const y = d3.scaleBand()
@@ -170,8 +170,7 @@ function barRanker() {
             .padding(.1);
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y))
-            //.call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0))
+            .call(d3.axisLeft(y).tickSizeOuter(0))
             // .selectAll("text")
             //     .style("text-anchor", "start")
             //     .style("transform", `translate(-${margin.left / 2}px, 0`);
