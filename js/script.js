@@ -97,7 +97,11 @@ function map() {
                         }
                     }
                     else {
-                        resetMapColors();
+                        d3.selectAll(".state").style("opacity", .3);
+                        for (let i = 0; i < 5; i++) {
+                            const row = lifeSat[i];
+                            document.getElementById(row[0]).style.opacity = 1;
+                        }
                     }
                 },
                 offset: '50%'
@@ -116,6 +120,7 @@ function map() {
                         }
                     }
                 },
+                offset: '50%'
             });
 
         });
