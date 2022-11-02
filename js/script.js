@@ -422,10 +422,6 @@ function lollipop() {
             .attr("stroke", "black")
             .attr('id', function(d) { return d.theme + "Line"; });
 
-        // const color = d3.scaleOrdinal()
-        //     .domain(['Health', 'Family', 'Finances', 'Religion'])
-        //     .range([ "#f0b67f", "#26f0f1", "#5438dc", "#e75a7c"]);
-
         // Circles - overall
         svg.selectAll("mycircle")
             .data(data)
@@ -490,7 +486,7 @@ function lollipop() {
             element: document.getElementById('ageGaps'),
             handler: function(direction) {
                 if (direction == 'down') {
-                    const delay = 1000; // prevents bug if user scrolls too fast
+                    const delay = 1500; // prevents bug if user scrolls too fast
 
                     d3.select("#hiddenTitle").transition().duration(1000).delay(delay).style('opacity', 1);
 
