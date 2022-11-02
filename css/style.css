@@ -194,6 +194,9 @@ div.tooltip {
 .bold {
     font-weight: bold;
 }
+.names {
+    font-size: 16px;
+}
 
 .fakeButton {
     display: inline-block;
