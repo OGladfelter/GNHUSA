@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=1024, maximum-scale=1.0, user-scalable=no" />
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146824308-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-146824308-1');
+        </script>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta charset="utf-8">
-		<title>Gross National Happiness USA Report</title>
+		<title>Gross National Happiness USA Happiness Report</title>
+
+		<!-- Favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+        <link rel="manifest" href="../favicon/site.webmanifest">
+    
+        <!-- Facebook Opengraph -->
+        <meta property="og:url" content="http://cultureplot.com/usa-happiness-report/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Gross National Happiness USA Happiness Report" />
+        <meta property="og:description" content="Results From A 5,000 Person National Survey On Happiness"/>
+    
+        <meta property="og:image" content="https://cultureplot.com/img/happiness-map.png" />
+        <meta property="og:image:alt" content="A map of US states by happiness scores" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+    
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://cultureplot.com/img/happiness-map.png" />
+        <meta name="twitter:image:alt" content="A map of US states by happiness scores" />
+        <meta name="twitter:description" content="Results From A 5,000 Person National Survey On Happiness"/>
+
+		<!-- CSS & libraries -->
 		<link rel="stylesheet" href="css/style.css">
 		<script src="https://d3js.org/d3.v7.min.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 		<script src="js/noframework.waypoints.min.js"></script>
 		<script src="js/rellax.min.js"></script>
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-		crossorigin=""/>
-		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-		crossorigin=""></script>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
 	</head>
 	<body>
 		<div class="title-container">
