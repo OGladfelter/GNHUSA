@@ -261,6 +261,9 @@ div.tooltip {
 .lollipopTextContainer {
     width:45%;
 }
+.photo2 {
+    display: none;
+}
 
 /* mobile CSS */
 @media (min-width: 320px) and (max-width: 999px) {
@@ -301,5 +304,11 @@ div.tooltip {
         margin: auto;
         margin-bottom: 50vh;
         position: relative;
+    }
+    .photo2 {
+        display: block;
+    }
+    .photo1 {
+        display: none;
     }
 }
