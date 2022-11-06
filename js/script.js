@@ -181,12 +181,9 @@ function barRanker() {
             .padding(.1);
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).tickSizeOuter(0))
-            // .selectAll("text")
-            //     .style("text-anchor", "start")
-            //     .style("transform", `translate(-${margin.left / 2}px, 0`);
+            .call(d3.axisLeft(y).tickSizeOuter(0));
 
-        //Bars
+        // bars
         svg.selectAll(".barChartRectangles")
             .data(data)
             .join("rect")
@@ -218,6 +215,13 @@ function barRanker() {
             .text(function(d) { return d.rank})
             .style('alignment-baseline', 'central')
             .style('fill', 'white');
+
+        svg.append("text")
+            .attr("class", "x-axis-label")
+            .style('text-anchor', 'middle')
+            .attr("x", width / 2)
+            .attr("y", height + margin.bottom)
+            .text("Life satisfaction");
 
     });
 }
