@@ -1,6 +1,7 @@
 const primaryColor = '#0024d9';
 const primaryColorLight = '#56cdfc'; // low end of map; younger ages in age analysis
 const primaryColorDark = '#0006b8'; // high end of map
+const mobile = window.innerWidth < 600;
 
 function map() {
     // add svg
@@ -132,13 +133,23 @@ function barRanker() {
     // add svg
     let box = document.getElementById('barChart');
     let width = box.offsetWidth - margin.left - margin.right;
-    const height = width * 1.5 - margin.top - margin.bottom;
+    let height = width * 1.5 - margin.top - margin.bottom;
+    let xValue = 'state';
+
+    // adjust for mobile
+    if (mobile) {
+        height = window.innerHeight * 1.5;
+        width = window.innerWidth;
+        margin.left = 30;
+        margin.right = 0;
+        xValue = 'stateShort'; // use 2-letter abbreviations
+    }
     const svg = d3.select("#barChart")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     const tooltip = d3.select("#tooltipBars");
 
@@ -156,17 +167,17 @@ function barRanker() {
 
         // Add X axis
         const x = d3.scaleLinear()
-        .domain([0, 10])
-        .range([ 0, width]);
+            .domain([0, 10])
+            .range([ 0, width]);
         svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x).tickSizeOuter(0));
+            .attr("class", "axis")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x).tickSizeOuter(0));
 
         // Y axis
         const y = d3.scaleBand()
             .range([ 0, height ])
-            .domain(data.map(d => d.state))
+            .domain(data.map(d => d[xValue]))
             .padding(.1);
         svg.append("g")
             .attr("class", "axis")
@@ -180,7 +191,7 @@ function barRanker() {
             .data(data)
             .join("rect")
             .attr("x", x(0) )
-            .attr("y", d => y(d.state))
+            .attr("y", d => y(d[xValue]))
             .attr("width", d => x(d.lifeSat))
             .attr("height", y.bandwidth())
             .attr("fill", d => colorScale(d.lifeSat))
@@ -203,7 +214,7 @@ function barRanker() {
             .data(data)
             .join("text")
             .attr("x", x(0) + 5 )
-            .attr("y", d => y(d.state) + (y.bandwidth() / 2))
+            .attr("y", d => y(d[xValue]) + (y.bandwidth() / 2))
             .text(function(d) { return d.rank})
             .style('alignment-baseline', 'central')
             .style('fill', 'white');

@@ -1,51 +1,51 @@
-state,lifeSat,rank
-South Carolina,7.211538,1
-Kentucky,7.078431,2
-Delaware,7.075472,3
-New Jersey,6.960784,4
-Maryland,6.941176,5
-California,6.938776,6
-North Dakota,6.916667,7
-Alabama,6.811321,8
-Indiana,6.800000,9
-Illinois,6.764706,10
-Mississippi,6.764706,11
-Montana,6.764706,12
-Georgia,6.750000,13
-North Carolina,6.750000,14
-South Dakota,6.720000,15
-Florida,6.692308,16
-Minnesota,6.680000,17
-Tennessee,6.673077,18
-Texas,6.660000,19
-New York,6.647059,20
-Michigan,6.647059,21
-Utah,6.632653,22
-New Mexico,6.615385,23
-Wisconsin,6.604167,24
-Virginia,6.580000,25
-Colorado,6.560000,26
-Arizona,6.560000,27
-Hawaii,6.557692,28
-Wyoming,6.519231,29
-Missouri,6.509804,30
-Nebraska,6.480769,31
-Vermont,6.442308,32
-Iowa,6.420000,33
-Kansas,6.420000,34
-Connecticut,6.384615,35
-Idaho,6.360000,36
-Louisiana,6.313725,37
-New Hampshire,6.313725,38
-Maine,6.274510,39
-Alaska,6.265306,40
-Ohio,6.240000,41
-Pennsylvania,6.176471,42
-West Virginia,6.115385,43
-Nevada,6.081633,44
-Massachusetts,6.058824,45
-Washington,6.040000,46
-Oklahoma,5.961538,47
-Oregon,5.882353,48
-Rhode Island,5.811321,49
-Arkansas,5.784314,50
+state,lifeSat,rank,stateShort
+South Carolina,7.211538,1,SC
+Kentucky,7.078431,2,KY
+Delaware,7.075472,3,DE
+New Jersey,6.960784,4,NJ
+Maryland,6.941176,5,MD
+California,6.938776,6,CA
+North Dakota,6.916667,7,ND
+Alabama,6.811321,8,AL
+Indiana,6.800000,9,IN
+Illinois,6.764706,10,IL
+Mississippi,6.764706,11,MS
+Montana,6.764706,12,MT
+Georgia,6.750000,13,GA
+North Carolina,6.750000,14,NC
+South Dakota,6.720000,15,SD
+Florida,6.692308,16,FL
+Minnesota,6.680000,17,MN
+Tennessee,6.673077,18,TN
+Texas,6.660000,19,TX
+New York,6.647059,20,NY
+Michigan,6.647059,21,MI
+Utah,6.632653,22,UT
+New Mexico,6.615385,23,NM
+Wisconsin,6.604167,24,WI
+Virginia,6.580000,25,VA
+Colorado,6.560000,26,CO
+Arizona,6.560000,27,AZ
+Hawaii,6.557692,28,HI
+Wyoming,6.519231,29,WY
+Missouri,6.509804,30,MO
+Nebraska,6.480769,31,NE
+Vermont,6.442308,32,VT
+Iowa,6.420000,33,IA
+Kansas,6.420000,34,KS
+Connecticut,6.384615,35,CT
+Idaho,6.360000,36,ID
+Louisiana,6.313725,37,LA
+New Hampshire,6.313725,38,NH
+Maine,6.274510,39,ME
+Alaska,6.265306,40,AK
+Ohio,6.240000,41,OH
+Pennsylvania,6.176471,42,PA
+West Virginia,6.115385,43,WV
+Nevada,6.081633,44,NV
+Massachusetts,6.058824,45,MA
+Washington,6.040000,46,WA
+Oklahoma,5.961538,47,OK
+Oregon,5.882353,48,OR
+Rhode Island,5.811321,49,RI
+Arkansas,5.784314,50,AR

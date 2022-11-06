@@ -271,5 +271,8 @@ article {
 .scrollOnTop {
     width: 90%;
 }
+#map {
+    display: none;
+}
   
 }
