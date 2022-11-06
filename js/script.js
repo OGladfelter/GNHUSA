@@ -578,6 +578,19 @@ function donations() {
     });
 }
 
+function addFootnoteInteraction(footnoteNum) {
+    var footnote = document.getElementById("footnote" + footnoteNum);
+    footnote.onclick = function() {
+        currentStyle = document.getElementById("footnote" + footnoteNum + "Text").style.display;
+        document.getElementById("footnote" + footnoteNum + "Text").style.display = (currentStyle === 'block') ? 'none' : 'block';
+        footnote.innerHTML = (footnote.innerHTML === 'x') ? footnoteNum : 'x';
+    };
+    document.getElementById("footnote" + footnoteNum + "Text").onclick = function() {
+        this.style.display = 'none';
+        document.getElementById("footnote" + footnoteNum).innerHTML = footnoteNum;
+    };
+}
+
 function main() {
     donations();
     map();
@@ -588,20 +601,11 @@ function main() {
     }
     lollipop();
 
+    addFootnoteInteraction('1');
+    addFootnoteInteraction('2');
+    addFootnoteInteraction('3');
+
     var rellax = new Rellax('.rellax');
-
-    var footnote1 = document.getElementById("footnote1");
-    footnote1.onclick = function() {
-        currentStyle = document.getElementById("footnote1Text").style.display;
-        document.getElementById("footnote1Text").style.display = (currentStyle === 'block') ? 'none' : 'block';
-
-        currentText = footnote1.innerHTML;
-        footnote1.innerHTML = (currentText === 'x') ? '1' : 'x';
-    };
-    document.getElementById("footnote1Text").onclick = function() {
-        this.style.display = 'none';
-        document.getElementById("footnote1").innerHTML = "1";
-    };
 }
 
 main();

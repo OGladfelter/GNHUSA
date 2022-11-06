@@ -275,14 +275,14 @@ sup:hover{
     color: #FE3C72;
     cursor: pointer;
 }
-.footnote_1 { 
+.footnote { 
     font-size: 18px;
     display: none; 
     color: rgb(105, 105, 105);
     text-decoration: none;
     margin: 15px;
 }
-.footnote_1:hover{
+.footnote:hover{
     cursor: pointer;
 }
 
