@@ -252,27 +252,33 @@ div.tooltip {
     margin: auto;
     margin-top: 30px;
 }
+.miniChartContainer {
+    display:flex; align-items:center; justify-content:center;
+}
 
 /* mobile CSS */
 @media (min-width: 320px) and (max-width: 999px) {
 
-.entry { 
-    width: 95%;
-}
-article {
-    width: 90%;
-}
-.contributionsSection {
-    width: 95%;
-}
-.rellax-container {
-    display: none;
-}
-.scrollOnTop {
-    width: 90%;
-}
-#map {
-    display: none;
-}
+    .entry { 
+        width: 95%;
+    }
+    article {
+        width: 90%;
+    }
+    .contributionsSection {
+        width: 95%;
+    }
+    .rellax-container {
+        display: none;
+    }
+    .scrollOnTop {
+        width: 90%;
+    }
+    #map {
+        display: none;
+    }
+    .miniChartContainer {
+        display:none;
+    }
   
 }

@@ -139,7 +139,7 @@ function barRanker() {
     // adjust for mobile
     if (mobile) {
         height = window.innerHeight * 1.5;
-        width = window.innerWidth;
+        width = box.offsetWidth;
         margin.left = 30;
         margin.right = 0;
         xValue = 'stateShort'; // use 2-letter abbreviations
@@ -231,6 +231,12 @@ function ageAndHappiness() {
     var margin = {top: 10, right: 30, bottom: 20, left: 30};
     width = width - margin.left - margin.right;
     var height = width * .5 - margin.top - margin.bottom;
+    // adjust for mobile
+    if (mobile) {
+        height = window.innerHeight * .5;
+        margin.left = 25;
+        margin.right = 10;
+    }
 
     // set the ranges
     var x = d3.scaleLinear().range([margin.left / 2, width - margin.right]);
@@ -302,12 +308,12 @@ function ageAndHappiness() {
             .attr("class", "y-axis-label")
             .attr("x", 10)
             .attr("y", 0 + margin.top)
-            .text('"How satisfied are you with your life?"');
+            .text(mobile ? 'Life satisfaction' : '"How satisfied are you with your life?"');
         svg.append("text")
             .attr("class", "y-axis-sublabel")
             .attr("x", 14)
             .attr("y", 20 + margin.top)
-            .text('Scale of 0 (not at all) - 10 (completely)');
+            .text(mobile ? 'Scale of 0 - 10' : 'Scale of 0 (not at all) - 10 (completely)');
 
     });
 }
@@ -573,12 +579,14 @@ function donations() {
 }
 
 function main() {
+    donations();
     map();
     barRanker();
     ageAndHappiness();
-    miniChart();
+    if (!mobile) {
+        miniChart();
+    }
     lollipop();
-    donations();
 
     var rellax = new Rellax('.rellax');
 }
