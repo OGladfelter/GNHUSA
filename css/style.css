@@ -255,12 +255,19 @@ div.tooltip {
 .miniChartContainer {
     display:flex; align-items:center; justify-content:center;
 }
+.lollipopContainer {
+    width:45%; float:right; position:sticky; top:0%;
+}
+.lollipopTextContainer {
+    width:45%;
+}
 
 /* mobile CSS */
 @media (min-width: 320px) and (max-width: 999px) {
 
     .entry { 
         width: 95%;
+        margin-bottom: 25vh;
     }
     article {
         width: 90%;
@@ -280,5 +287,19 @@ div.tooltip {
     .miniChartContainer {
         display:none;
     }
-  
+    .lollipopContainer {
+        width:100%; float:initial; position:sticky; top:10%;
+    }
+    .lollipopTextContainer {
+        width:100%;
+    }
+    .lollipopText {
+        background-color: white;
+        border: 1px black solid;
+        padding: 10px;
+        width: 100%;
+        margin: auto;
+        margin-bottom: 50vh;
+        position: relative;
+    }
 }
