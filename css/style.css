@@ -181,12 +181,12 @@ div.tooltip {
 }
 .rellax {
     border: 2px silver solid;
-    padding: 5px;
+    padding: 7.5px;
     position: absolute;
     background-color: #273641;
     max-width: 15vw;
     border-radius: 10px;
-    font-weight: 600;
+    font-weight: 400;
     color: rgb(244, 243, 243);
     /* transform: translateX(-50%, 0px, 0px) !important; this would turn off rellax */
 }
