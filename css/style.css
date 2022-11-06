@@ -265,6 +265,27 @@ div.tooltip {
     display: none;
 }
 
+sup { 
+    vertical-align: top; 
+    color: #141DFF;
+    font-size: 16px;
+    line-height: 20px;
+}
+sup:hover{
+    color: #FE3C72;
+    cursor: pointer;
+}
+.footnote_1 { 
+    font-size: 18px;
+    display: none; 
+    color: rgb(105, 105, 105);
+    text-decoration: none;
+    margin: 15px;
+}
+.footnote_1:hover{
+    cursor: pointer;
+}
+
 /* mobile CSS */
 @media (min-width: 320px) and (max-width: 999px) {
 

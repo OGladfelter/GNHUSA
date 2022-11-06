@@ -589,6 +589,19 @@ function main() {
     lollipop();
 
     var rellax = new Rellax('.rellax');
+
+    var footnote1 = document.getElementById("footnote1");
+    footnote1.onclick = function() {
+        currentStyle = document.getElementById("footnote1Text").style.display;
+        document.getElementById("footnote1Text").style.display = (currentStyle === 'block') ? 'none' : 'block';
+
+        currentText = footnote1.innerHTML;
+        footnote1.innerHTML = (currentText === 'x') ? '1' : 'x';
+    };
+    document.getElementById("footnote1Text").onclick = function() {
+        this.style.display = 'none';
+        document.getElementById("footnote1").innerHTML = "1";
+    };
 }
 
 main();
