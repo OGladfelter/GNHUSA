@@ -356,7 +356,7 @@ function miniChart() {
 
         // Scale the range of the data
         x.domain(d3.extent(data, function(d) { return d.Q2; }));
-        y.domain([0, d3.max(data, function(d) { return d.happiness; })]);
+        y.domain([5, d3.max(data, function(d) { return d.happiness; })]);
         
         // Add the scatterplot
         svg.selectAll("dot")
@@ -365,7 +365,7 @@ function miniChart() {
         .attr("r", 3)
         .attr("cx", function(d) { return x(d.Q2); })
         .attr("cy", function(d) { return y(d.happiness); })
-        .style('fill', 'rgb(25,50,140)')
+        .style('fill', 'rgb(200,20,0)')
         .style('opacity', 0.7);
 
         // Add the X Axis
