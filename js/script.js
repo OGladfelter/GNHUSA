@@ -75,7 +75,7 @@ function map() {
                 element: document.getElementById('top5LifeSatStep'),
                 handler: function(direction) {
                     if (direction == 'down') {
-                        d3.selectAll(".state").style("opacity", .3);
+                        d3.selectAll(".state").style("opacity", .2);
                         for (let i = 0; i < 5; i++) {
                             const row = lifeSat[i];
                             document.getElementById(row[0]).style.opacity = 1;
@@ -91,14 +91,14 @@ function map() {
                 element: document.getElementById('bottom5LifeSatStep'),
                 handler: function(direction) {
                     if (direction == 'down') {
-                        d3.selectAll(".state").style("opacity", .3);
+                        d3.selectAll(".state").style("opacity", .2);
                         for (let i = lifeSat.length - 1; i >= lifeSat.length - 5; i--) {
                             const row = lifeSat[i];
                             document.getElementById(row[0]).style.opacity = 1;
                         }
                     }
                     else {
-                        d3.selectAll(".state").style("opacity", .3);
+                        d3.selectAll(".state").style("opacity", .2);
                         for (let i = 0; i < 5; i++) {
                             const row = lifeSat[i];
                             document.getElementById(row[0]).style.opacity = 1;
@@ -114,7 +114,7 @@ function map() {
                         resetMapColors();
                     }
                     else {
-                        d3.selectAll(".state").style("opacity", .3);
+                        d3.selectAll(".state").style("opacity", .2);
                         for (let i = lifeSat.length - 1; i >= lifeSat.length - 5; i--) {
                             const row = lifeSat[i];
                             document.getElementById(row[0]).style.opacity = 1;
