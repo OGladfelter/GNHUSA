@@ -196,11 +196,13 @@ function barRanker() {
             .on('mouseover', function(event, d) {
                 d3.select(this).style('fill', 'orange');
                 tooltip.html('State: ' + d.state + '<br>Rank: ' + d.rank + '<br> Avg life satisfaction: ' + d.lifeSat.toFixed(1))
-                    .style('left', event.pageX + 5 + 'px')
-                    .style('top', event.pageY + 10 + 'px')
                     .transition()
                     .duration(250)
                     .style('opacity', 1);
+            }).on('mousemove', function(event) {
+                tooltip
+                    .style('left', event.pageX / window.innerWidth <= 0.5 ? event.pageX + 5 + 'px' : event.pageX - tooltip.node().getBoundingClientRect().width + 'px')
+                    .style('top', event.pageY + 10 + 'px')
             }).on('mouseout', function(d) {
                 d3.select(this).style('fill', colorScale(d.lifeSat));
                 tooltip.transition().duration(250).style('opacity', 0);
@@ -281,7 +283,7 @@ function ageAndHappiness() {
         .style('opacity', 0.9)
         .on("mouseover", function(event, d) {
             tooltip.html('The average life satisfaction score for respondents aged <b>' + d.Q2 + " years</b> \n is <b>" + d.lifeSat.toFixed(1) + "</b>")
-                .style('left', event.pageX + 5 + 'px')
+                .style('left', event.pageX / window.innerWidth <= 0.5 ? event.pageX + 5 + 'px' : event.pageX - tooltip.node().getBoundingClientRect().width + 'px')
                 .style('top', event.pageY + 10 + 'px')
                 .transition()
                 .duration(250)
