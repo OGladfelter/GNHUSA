@@ -32,12 +32,11 @@ body {
     transform: translateY(-50%);
 }
 
-
 .entry {
     background-color: rgba(250, 250, 250, 0.55);
     width: 75%;
     margin: auto;
-    margin-bottom: 50vh;
+    margin-bottom: 25vh;
     /* border: 1px black solid; */
 }
 article {
@@ -302,6 +301,12 @@ sup:hover{
 }
 .mapContainer {
     position:sticky; top:15%;
+}
+
+.textOnBars {
+    alignment-baseline: central;
+    fill: white;
+    pointer-events: none;
 }
 
 /* mobile CSS */

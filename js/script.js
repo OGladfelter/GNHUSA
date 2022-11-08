@@ -8,11 +8,9 @@ function map() {
     let box = document.getElementById('map');
     const width = box.offsetWidth;
     let height = width * .6;
-    let scale = 1100;
 
     if (mobile) {
         height = window.innerHeight;
-        scale = 300;
     }
 
     const svg = d3.select("#map")
@@ -181,7 +179,7 @@ function barRanker() {
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", `translate(0, ${height})`)
-            .call(d3.axisBottom(x).tickSizeOuter(0));
+            .call(d3.axisBottom(x).tickSizeOuter(0).ticks(5));
 
         // Y axis
         const y = d3.scaleBand()
@@ -223,9 +221,8 @@ function barRanker() {
             .join("text")
             .attr("x", x(0) + 5 )
             .attr("y", d => y(d[xValue]) + (y.bandwidth() / 2))
-            .text(function(d) { return d.rank})
-            .style('alignment-baseline', 'central')
-            .style('fill', 'white');
+            .text(function(d) { if (d.rank == 1 || d.rank % 10 === 0) return d.rank})
+            .attr('class', 'textOnBars');
 
         svg.append("text")
             .attr("class", "x-axis-label")
