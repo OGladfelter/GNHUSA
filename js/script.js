@@ -6,8 +6,15 @@ const mobile = window.innerWidth < 600;
 function map() {
     // add svg
     let box = document.getElementById('map');
-    let width = box.offsetWidth;
-    const height = width * .6;
+    const width = box.offsetWidth;
+    let height = width * .6;
+    let scale = 1100;
+
+    if (mobile) {
+        height = window.innerHeight;
+        scale = 300;
+    }
+
     const svg = d3.select("#map")
         .append("svg")
         .attr("width", width)
@@ -15,9 +22,9 @@ function map() {
 
     // Map and projection
     const path = d3.geoPath();
-    const projection = d3.geoAlbersUsa()
-        .scale(1100)
-        .translate([width / 2, height / 2]);
+    // const projection = d3.geoAlbersUsa().fitSize([width,height])
+        // .scale(scale)
+        // .translate([width / 2, height / 2]);
 
     // Data 
     const data = new Map();
@@ -50,6 +57,8 @@ function map() {
                 const row = lifeSat[r];
                 document.getElementById('bottom' + i).style.color = colorScale(row[1]);
             }
+
+            const projection = d3.geoAlbersUsa().fitSize([width,height], topo); // new project helps for mobile
 
             // Draw the map
             svg.append("g")

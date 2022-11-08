@@ -300,6 +300,9 @@ sup:hover{
 .footnote:hover{
     cursor: pointer;
 }
+.mapContainer {
+    position:sticky; top:15%;
+}
 
 /* mobile CSS */
 @media (min-width: 320px) and (max-width: 999px) {
@@ -319,9 +322,6 @@ sup:hover{
     }
     .scrollOnTop {
         width: 90%;
-    }
-    #map {
-        display: none;
     }
     .miniChartContainer {
         display:none;
@@ -347,5 +347,8 @@ sup:hover{
     }
     .photo1 {
         display: none;
+    }
+    .mapContainer {
+        top:0%;
     }
 }
