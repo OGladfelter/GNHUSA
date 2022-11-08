@@ -241,6 +241,7 @@ div.tooltip {
     margin: auto;
     margin-top: 90vh;
     margin-bottom: 20vh;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .footer {
@@ -339,6 +340,7 @@ sup:hover{
         margin: auto;
         margin-bottom: 50vh;
         position: relative;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
     .photo2 {
         display: block;
