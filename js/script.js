@@ -141,7 +141,7 @@ function barRanker() {
     let box = document.getElementById('barChart');
     let width = box.offsetWidth - margin.left - margin.right;
     let height = width * 1.5 - margin.top - margin.bottom;
-    let xValue = 'state';
+    let yTickLabels = 'state';
 
     // adjust for mobile
     if (mobile) {
@@ -149,7 +149,7 @@ function barRanker() {
         width = box.offsetWidth;
         margin.left = 30;
         margin.right = 0;
-        xValue = 'stateShort'; // use 2-letter abbreviations
+        yTickLabels = 'stateShort'; // use 2-letter abbreviations
     }
     const svg = d3.select("#barChart")
         .append("svg")
@@ -181,21 +181,27 @@ function barRanker() {
             .attr("transform", `translate(0, ${height})`)
             .call(d3.axisBottom(x).tickSizeOuter(0).ticks(5));
 
+        var byRank = data.slice(0);
+        byRank.sort(function(a,b) {
+            return b.lifeSat - a.lifeSat;
+        });
+        const statesSorted = byRank.map(d => d[yTickLabels]);
+
         // Y axis
         const y = d3.scaleBand()
             .range([ 0, height ])
-            .domain(data.map(d => d[xValue]))
+            .domain(data.map(d => d.lifeSatRank).sort(function(a, b){return a-b}))
             .padding(.1);
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).tickSizeOuter(0));
+            .call(d3.axisLeft(y).tickSizeOuter(0).tickFormat((d, i) => statesSorted[i]));
 
         // bars
         svg.selectAll(".barChartRectangles")
             .data(data)
             .join("rect")
             .attr("x", x(0) )
-            .attr("y", d => y(d[xValue]))
+            .attr("y", d => y(d.lifeSatRank))
             .attr("width", d => x(d.lifeSat))
             .attr("height", y.bandwidth())
             .attr("fill", d => colorScale(d.lifeSat))
@@ -220,7 +226,7 @@ function barRanker() {
             .data(data)
             .join("text")
             .attr("x", x(0) + 5 )
-            .attr("y", d => y(d[xValue]) + (y.bandwidth() / 2))
+            .attr("y", d => y(d.lifeSatRank) + (y.bandwidth() / 2))
             .text(function(d) { if (d.lifeSatRank == 1 || d.lifeSatRank % 10 === 0) return d.lifeSatRank})
             .attr('class', 'textOnBars');
 
