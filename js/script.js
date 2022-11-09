@@ -135,7 +135,7 @@ function map() {
 }
 
 function barRanker() {
-    const margin = {top: 20, right: 30, bottom: 40, left: 50}
+    const margin = {top: 20, right: 30, bottom: 50, left: 50}
 
     // add svg
     let box = document.getElementById('barChart');
@@ -238,25 +238,27 @@ function barRanker() {
 
         svg.append("text")
             .attr("class", "x-axis-label")
+            .attr('id', 'rankerAxisLabel')
             .style('text-anchor', 'middle')
             .attr("x", width / 2)
-            .attr("y", height + margin.bottom)
+            .attr("y", height + margin.bottom - 10)
             .text("Life satisfaction");
 
         d3.selectAll(".rankerButtons").on("click", function() {
             // determine which toggle was selected
             const metric = this.dataset.metric;
             const rankMetric = this.dataset.ranker;
+            const metricTitle = this.innerHTML;
 
             // update scales
             colorScale.domain(d3.extent(data, function(d) { return d[metric]; }));
-            y.domain(data.map(d => d[rankMetric]).sort(function(a, b){return a-b}))
+            y.domain(data.map(d => d[rankMetric]).sort(function(a, b){return a-b}));
 
             // update rectangles
             svg.selectAll(".barChartRectangles")
                 .on('mouseover', function(event, d) { // update tooltip info
                     d3.select(this).style('fill', 'orange');
-                    tooltip.html('State: ' + d.state + '<br>Rank: ' + d[rankMetric] + '<br> Avg score: ' + d[metric].toFixed(1))
+                    tooltip.html('State: ' + d.state + '<br>Rank: ' + d[rankMetric] + '<br> Avg ' + metricTitle.toLowerCase() + ': ' + d[metric].toFixed(1))
                         .transition()
                         .duration(250)
                         .style('opacity', 1);
@@ -268,6 +270,9 @@ function barRanker() {
 
             // move text labels
             svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d[rankMetric]) + (y.bandwidth() / 2));
+
+            // update x-axis label
+            svg.select("#rankerAxisLabel").text(metricTitle);
         });
     });
 }

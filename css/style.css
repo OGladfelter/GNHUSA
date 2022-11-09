@@ -329,9 +329,6 @@ sup:hover{
     .scrollOnTop {
         width: 90%;
     }
-    .miniChartContainer {
-        display:none;
-    }
     .lollipopContainer {
         width:100%; float:initial; position:sticky; top:10%;
     }
@@ -356,5 +353,11 @@ sup:hover{
     }
     .mapContainer {
         top:0%;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 600px) {
+    .miniChartContainer {
+        display:none;
     }
 }
