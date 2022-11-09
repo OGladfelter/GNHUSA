@@ -200,12 +200,12 @@ function barRanker() {
         svg.selectAll(".barChartRectangles")
             .data(data)
             .join("rect")
+            .attr('class', 'barChartRectangles')
             .attr("x", x(0) )
             .attr("y", d => y(d.lifeSatRank))
             .attr("width", d => x(d.lifeSat))
             .attr("height", y.bandwidth())
             .attr("fill", d => colorScale(d.lifeSat))
-            .style('opacity', 0.75)
             .on('mouseover', function(event, d) {
                 d3.select(this).style('fill', 'orange');
                 tooltip.html('State: ' + d.state + '<br>Rank: ' + d.lifeSatRank + '<br> Avg life satisfaction: ' + d.lifeSat.toFixed(1))
@@ -237,11 +237,49 @@ function barRanker() {
             .attr("y", height + margin.bottom)
             .text("Life satisfaction");
 
+        d3.select("#anxietyButton").on("click", function() {
+            colorScale.domain(d3.extent(data, function(d) { return d.anxiety; }));
+            y.domain(data.map(d => d.anxietyRank).sort(function(a, b){return a-b}))
+            svg.selectAll(".barChartRectangles")
+            .transition().duration(1000)
+            .attr("fill", d => colorScale(d.anxiety))
+            .attr("y", d => y(d.anxietyRank))
+            .attr("width", d => x(d.anxiety));
+        });
+        d3.select("#lifeSatButton").on("click", function() {
+            colorScale.domain(d3.extent(data, function(d) { return d.lifeSat; }));
+            y.domain(data.map(d => d.lifeSatRank).sort(function(a, b){return a-b}))
+            svg.selectAll(".barChartRectangles")
+            .transition().duration(1000)
+            .attr("fill", d => colorScale(d.lifeSat))
+            .attr("y", d => y(d.lifeSatRank))
+            .attr("width", d => x(d.lifeSat));
+        });
     });
 }
 
 function updateBars() {
+    const svg = d3.select("#barChart").select("svg"); // access the svg already created
 
+    // re-read the data. Note: there has to be a better way since this data has already been read once before
+    d3.csv("data/stateData.csv").then( function(data) {
+        data.forEach(function(d) {
+            d.anxiety = +d.anxiety;
+            d.anxietyRank = +d.anxietyRank;
+        });
+
+        // create color scale
+        const colorScale = d3.scaleLinear()
+            .domain(d3.extent(data, function(d) { return d.anxiety; }))
+            .range([primaryColorLight, primaryColorDark]);
+
+        // update bar colors
+        svg.selectAll(".barChartRectangles")
+            .transition().duration(1000)
+            .attr("fill", d => colorScale(d.anxiety))
+            //.attr("y", d => y(d.lifeSatRank))
+            .attr("width", d => x(d.lifeSat));
+    });
 }
 
 function ageAndHappiness() {
