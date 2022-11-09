@@ -234,6 +234,10 @@ function barRanker() {
     });
 }
 
+function updateBars() {
+    
+}
+
 function ageAndHappiness() {
 
     let box = document.getElementById('ageAndHappinessScatterplot');
