@@ -166,10 +166,12 @@
 					</div>
 					<div class="scrollOnTop" style="visibility:hidden;"></div>
 				</div>
-				<div id="anxietyButton" data-metric="anxiety" data-ranker="anxietyRank" class="rankerButtons">Anxiety</div>
-				<div id="lifeSatButton" data-metric="lifeSat" data-ranker="lifeSatRank" class="rankerButtons">Life satisfaction</div>
-				<div id="anxietyButton" data-metric="happiness" data-ranker="happyRank" class="rankerButtons">Happiness yesterday</div>
-				<div id="lifeSatButton" data-metric="worthwhile" data-ranker="worthwhileRank" class="rankerButtons">Worthwhileness</div>
+				<div style="text-align: center;">
+					<button id="lifeSatButton" data-metric="lifeSat" data-ranker="lifeSatRank" class="rankerButtons buttonSelected">Life satisfaction</button>
+					<button id="anxietyButton" data-metric="happiness" data-ranker="happyRank" class="rankerButtons">Happiness yesterday</button>
+					<button id="lifeSatButton" data-metric="worthwhile" data-ranker="worthwhileRank" class="rankerButtons">Worthwhileness</button>
+					<button id="anxietyButton" data-metric="anxiety" data-ranker="anxietyRank" class="rankerButtons">Anxiety</button>
+				</div>
 				<div id="barChart"></div>
 				<div id="tooltipBars" class="tooltip" style="text-align:left;"></div>
 			</article>

@@ -273,6 +273,12 @@ function barRanker() {
 
             // update x-axis label
             svg.select("#rankerAxisLabel").text(metricTitle);
+
+            // update button style
+            d3.selectAll(".rankerButtons").each(function (p, j) {
+                this.classList.remove('buttonSelected');
+            });
+            this.classList.add('buttonSelected');
         });
     });
 }

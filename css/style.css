@@ -211,19 +211,29 @@ div.tooltip {
     font-size: 16px;
 }
 
-.fakeButton {
-    display: inline-block;
+button {
     background: white;
     border: 1px black solid;
     border-radius: 5px;
     color: black;
-    padding: 2.5px 4px;
+    padding: 5px 7.5px;
     cursor: pointer;
-    
+    font-size: 16px;
+    margin: auto 2.5px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
 }
-.fakeButton:hover {
+button:hover {
+    background: whitesmoke;
+}
+.buttonSelected {
     background: #0007c9;
     color: white;
+    pointer-events: none;
 }
 
 #top0, #top1, #top2, #top3, #top4, #bottom0, #bottom1, #bottom2, #bottom3, #bottom4 {
