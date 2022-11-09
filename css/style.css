@@ -307,6 +307,7 @@ sup:hover{
     alignment-baseline: central;
     fill: white;
     pointer-events: none;
+    font-size: 14px;
 }
 
 /* mobile CSS */

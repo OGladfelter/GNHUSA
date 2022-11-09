@@ -135,12 +135,12 @@ function map() {
 }
 
 function barRanker() {
-    const margin = {top: 20, right: 30, bottom: 40, left: 200}
+    const margin = {top: 20, right: 30, bottom: 40, left: 50}
 
     // add svg
     let box = document.getElementById('barChart');
     let width = box.offsetWidth - margin.left - margin.right;
-    let height = width * 1.5 - margin.top - margin.bottom;
+    let height = window.innerHeight * 1.5 - margin.top - margin.bottom;
     let yTickLabels = 'state';
 
     // adjust for mobile
@@ -191,10 +191,10 @@ function barRanker() {
         const y = d3.scaleBand()
             .range([ 0, height ])
             .domain(data.map(d => d.lifeSatRank).sort(function(a, b){return a-b}))
-            .padding(.1);
+            .padding(.05);
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).tickSizeOuter(0).tickFormat((d, i) => statesSorted[i]));
+            .call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0).tickFormat((d, i) => data.map(d => d.lifeSatRank).sort(function(a, b){return a-b})[i]));
 
         // bars
         svg.selectAll(".barChartRectangles")
@@ -222,12 +222,12 @@ function barRanker() {
             });
 
         // text
-        svg.selectAll(".barChartText")
+        svg.selectAll(".textOnBars")
             .data(data)
             .join("text")
             .attr("x", x(0) + 5 )
             .attr("y", d => y(d.lifeSatRank) + (y.bandwidth() / 2))
-            .text(function(d) { if (d.lifeSatRank == 1 || d.lifeSatRank % 10 === 0) return d.lifeSatRank})
+            .text(d => d.state)
             .attr('class', 'textOnBars');
 
         svg.append("text")
@@ -241,19 +241,21 @@ function barRanker() {
             colorScale.domain(d3.extent(data, function(d) { return d.anxiety; }));
             y.domain(data.map(d => d.anxietyRank).sort(function(a, b){return a-b}))
             svg.selectAll(".barChartRectangles")
-            .transition().duration(1000)
-            .attr("fill", d => colorScale(d.anxiety))
-            .attr("y", d => y(d.anxietyRank))
-            .attr("width", d => x(d.anxiety));
+                .transition().duration(1500)
+                .attr("fill", d => colorScale(d.anxiety))
+                .attr("y", d => y(d.anxietyRank))
+                .attr("width", d => x(d.anxiety));
+            svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d.anxietyRank) + (y.bandwidth() / 2));
         });
         d3.select("#lifeSatButton").on("click", function() {
             colorScale.domain(d3.extent(data, function(d) { return d.lifeSat; }));
             y.domain(data.map(d => d.lifeSatRank).sort(function(a, b){return a-b}))
             svg.selectAll(".barChartRectangles")
-            .transition().duration(1000)
-            .attr("fill", d => colorScale(d.lifeSat))
-            .attr("y", d => y(d.lifeSatRank))
-            .attr("width", d => x(d.lifeSat));
+                .transition().duration(1500)
+                .attr("fill", d => colorScale(d.lifeSat))
+                .attr("y", d => y(d.lifeSatRank))
+                .attr("width", d => x(d.lifeSat));
+            svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d.lifeSatRank) + (y.bandwidth() / 2));
         });
     });
 }
