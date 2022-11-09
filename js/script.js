@@ -165,7 +165,7 @@ function barRanker() {
 
         data.forEach(function(d) {
             d.lifeSat = +d.lifeSat;
-            d.rank = +d.rank;
+            d.lifeSatRank = +d.lifeSatRank;
         });
 
         const colorScale = d3.scaleLinear()
@@ -202,7 +202,7 @@ function barRanker() {
             .style('opacity', 0.75)
             .on('mouseover', function(event, d) {
                 d3.select(this).style('fill', 'orange');
-                tooltip.html('State: ' + d.state + '<br>Rank: ' + d.rank + '<br> Avg life satisfaction: ' + d.lifeSat.toFixed(1))
+                tooltip.html('State: ' + d.state + '<br>Rank: ' + d.lifeSatRank + '<br> Avg life satisfaction: ' + d.lifeSat.toFixed(1))
                     .transition()
                     .duration(250)
                     .style('opacity', 1);
@@ -221,7 +221,7 @@ function barRanker() {
             .join("text")
             .attr("x", x(0) + 5 )
             .attr("y", d => y(d[xValue]) + (y.bandwidth() / 2))
-            .text(function(d) { if (d.rank == 1 || d.rank % 10 === 0) return d.rank})
+            .text(function(d) { if (d.lifeSatRank == 1 || d.lifeSatRank % 10 === 0) return d.lifeSatRank})
             .attr('class', 'textOnBars');
 
         svg.append("text")
@@ -235,7 +235,7 @@ function barRanker() {
 }
 
 function updateBars() {
-    
+
 }
 
 function ageAndHappiness() {
