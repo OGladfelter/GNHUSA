@@ -166,6 +166,12 @@ function barRanker() {
         data.forEach(function(d) {
             d.lifeSat = +d.lifeSat;
             d.lifeSatRank = +d.lifeSatRank;
+            d.anxiety = +d.anxiety;
+            d.anxietyRank = +d.anxietyRank;
+            d.worthwhile = +d.worthwhile;
+            d.worthwhileRank = +d.worthwhileRank;
+            d.happiness = +d.happiness;
+            d.happyRank = +d.happyRank;
         });
 
         const colorScale = d3.scaleLinear()
@@ -237,50 +243,32 @@ function barRanker() {
             .attr("y", height + margin.bottom)
             .text("Life satisfaction");
 
-        d3.select("#anxietyButton").on("click", function() {
-            colorScale.domain(d3.extent(data, function(d) { return d.anxiety; }));
-            y.domain(data.map(d => d.anxietyRank).sort(function(a, b){return a-b}))
+        d3.selectAll(".rankerButtons").on("click", function() {
+            // determine which toggle was selected
+            const metric = this.dataset.metric;
+            const rankMetric = this.dataset.ranker;
+
+            // update scales
+            colorScale.domain(d3.extent(data, function(d) { return d[metric]; }));
+            y.domain(data.map(d => d[rankMetric]).sort(function(a, b){return a-b}))
+
+            // update rectangles
             svg.selectAll(".barChartRectangles")
+                .on('mouseover', function(event, d) { // update tooltip info
+                    d3.select(this).style('fill', 'orange');
+                    tooltip.html('State: ' + d.state + '<br>Rank: ' + d[rankMetric] + '<br> Avg score: ' + d[metric].toFixed(1))
+                        .transition()
+                        .duration(250)
+                        .style('opacity', 1);
+                })
                 .transition().duration(1500)
-                .attr("fill", d => colorScale(d.anxiety))
-                .attr("y", d => y(d.anxietyRank))
-                .attr("width", d => x(d.anxiety));
-            svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d.anxietyRank) + (y.bandwidth() / 2));
+                .attr("fill", d => colorScale(d[metric])) // recolor
+                .attr("y", d => y(d[rankMetric])) // move up or down
+                .attr("width", d => x(d[metric])); // resize
+
+            // move text labels
+            svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d[rankMetric]) + (y.bandwidth() / 2));
         });
-        d3.select("#lifeSatButton").on("click", function() {
-            colorScale.domain(d3.extent(data, function(d) { return d.lifeSat; }));
-            y.domain(data.map(d => d.lifeSatRank).sort(function(a, b){return a-b}))
-            svg.selectAll(".barChartRectangles")
-                .transition().duration(1500)
-                .attr("fill", d => colorScale(d.lifeSat))
-                .attr("y", d => y(d.lifeSatRank))
-                .attr("width", d => x(d.lifeSat));
-            svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d.lifeSatRank) + (y.bandwidth() / 2));
-        });
-    });
-}
-
-function updateBars() {
-    const svg = d3.select("#barChart").select("svg"); // access the svg already created
-
-    // re-read the data. Note: there has to be a better way since this data has already been read once before
-    d3.csv("data/stateData.csv").then( function(data) {
-        data.forEach(function(d) {
-            d.anxiety = +d.anxiety;
-            d.anxietyRank = +d.anxietyRank;
-        });
-
-        // create color scale
-        const colorScale = d3.scaleLinear()
-            .domain(d3.extent(data, function(d) { return d.anxiety; }))
-            .range([primaryColorLight, primaryColorDark]);
-
-        // update bar colors
-        svg.selectAll(".barChartRectangles")
-            .transition().duration(1000)
-            .attr("fill", d => colorScale(d.anxiety))
-            //.attr("y", d => y(d.lifeSatRank))
-            .attr("width", d => x(d.lifeSat));
     });
 }
 
