@@ -187,12 +187,6 @@ function barRanker() {
             .attr("transform", `translate(0, ${height})`)
             .call(d3.axisBottom(x).tickSizeOuter(0).ticks(5));
 
-        var byRank = data.slice(0);
-        byRank.sort(function(a,b) {
-            return b.lifeSat - a.lifeSat;
-        });
-        const statesSorted = byRank.map(d => d[yTickLabels]);
-
         // Y axis
         const y = d3.scaleBand()
             .range([ 0, height ])
@@ -200,7 +194,7 @@ function barRanker() {
             .padding(.05);
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0).tickFormat((d, i) => data.map(d => d.lifeSatRank).sort(function(a, b){return a-b})[i]));
+            .call(d3.axisLeft(y).tickSizeOuter(0).tickSize(0).tickFormat((d, i) => d == 1 || d % 5 == 0 ? d : ''));
 
         // bars
         svg.selectAll(".barChartRectangles")
