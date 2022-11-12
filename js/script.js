@@ -518,8 +518,6 @@ function lollipop() {
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    //d3.select("#lollipopTitle").style("transform", `translate(${margin.left}px, 0`);
-
     // Parse the Data
     d3.csv("data/themes.csv").then( function(data) {
 
@@ -543,7 +541,6 @@ function lollipop() {
             .selectAll("text")
                 .style("text-anchor", "start")
                 .style("transform", `translate(-${margin.left-2}px, 0`);
-
 
         // Lines
         svg.selectAll("myline")
@@ -621,33 +618,32 @@ function lollipop() {
             element: document.getElementById('ageGaps'),
             handler: function(direction) {
                 if (direction == 'down') {
-                    const delay = 1500; // prevents bug if user scrolls too fast
 
-                    d3.select("#hiddenTitle").transition().duration(1000).delay(delay).style('opacity', 1);
+                    d3.select("#hiddenTitle").transition().duration(1000).style('opacity', 1);
 
                     const familyOlder = 48.44;
                     const familyYounger = 41.0;
-                    d3.select("#FamilyLine").transition().duration(1000).delay(delay).attr('x1', x(familyYounger)).attr('x2', x(familyOlder));
-                    d3.select("#FamilyCircle").transition().duration(1000).delay(delay).attr('cx', x(familyOlder)); //  now representing the 45+ age group
-                    d3.select("#FamilyCircleYoung").transition().duration(1000).delay(delay).attr('cx', x(familyYounger)).attr('r', 8); // show new circle
+                    d3.select("#FamilyLine").transition().duration(1000).attr('x1', x(familyYounger)).attr('x2', x(familyOlder));
+                    d3.select("#FamilyCircle").transition().duration(1000).attr('cx', x(familyOlder)).attr('r', 8); //  now representing the 45+ age group
+                    d3.select("#FamilyCircleYoung").transition().duration(1000).attr('cx', x(familyYounger)).attr('r', 8); // show new circle
                     
                     const healthOlder = 7.73;
                     const healthYounger = 4.62;
-                    d3.select("#HealthLine").transition().duration(1000).delay(delay).attr('x1', x(healthYounger)).attr('x2', x(healthOlder));
-                    d3.select("#HealthCircle").transition().duration(1000).delay(delay).attr('cx', x(healthOlder)); //  now representing the 45+ age group
-                    d3.select("#HealthCircleYoung").transition().duration(1000).delay(delay).attr('cx', x(healthYounger)).attr('r', 8); // show new circle
+                    d3.select("#HealthLine").transition().duration(1000).attr('x1', x(healthYounger)).attr('x2', x(healthOlder));
+                    d3.select("#HealthCircle").transition().duration(1000).attr('cx', x(healthOlder)).attr('r', 8); //  now representing the 45+ age group
+                    d3.select("#HealthCircleYoung").transition().duration(1000).attr('cx', x(healthYounger)).attr('r', 8); // show new circle
 
                     const financesOlder = 4.62;
                     const financesYounger = 8.05;
-                    d3.select("#FinancesLine").transition().duration(1000).delay(delay).attr('x1', x(financesYounger)).attr('x2', x(financesOlder));
-                    d3.select("#FinancesCircle").transition().duration(1000).delay(delay).attr('cx', x(financesOlder)); //  now representing the 45+ age group
-                    d3.select("#FinancesCircleYoung").transition().duration(1000).delay(delay).attr('cx', x(financesYounger)).attr('r', 8); // show new circle
+                    d3.select("#FinancesLine").transition().duration(1000).attr('x1', x(financesYounger)).attr('x2', x(financesOlder));
+                    d3.select("#FinancesCircle").transition().duration(1000).attr('cx', x(financesOlder)).attr('r', 8); //  now representing the 45+ age group
+                    d3.select("#FinancesCircleYoung").transition().duration(1000).attr('cx', x(financesYounger)).attr('r', 8); // show new circle
 
                     const religionOlder = 6.34;
                     const religionYounger = 2.38;
-                    d3.select("#ReligionLine").transition().duration(1000).delay(delay).attr('x1', x(religionYounger)).attr('x2', x(religionOlder));
-                    d3.select("#ReligionCircle").transition().duration(1000).delay(delay).attr('cx', x(religionOlder)); //  now representing the 45+ age group
-                    d3.select("#ReligionCircleYoung").transition().duration(1000).delay(delay).attr('cx', x(religionYounger)).attr('r', 8); // show new circle
+                    d3.select("#ReligionLine").transition().duration(1000).attr('x1', x(religionYounger)).attr('x2', x(religionOlder));
+                    d3.select("#ReligionCircle").transition().duration(1000).attr('cx', x(religionOlder)).attr('r', 8); //  now representing the 45+ age group
+                    d3.select("#ReligionCircleYoung").transition().duration(1000).attr('cx', x(religionYounger)).attr('r', 8); // show new circle
                 }
                 else {
                     d3.select("#hiddenTitle").transition().duration(1000).style('opacity', 0);
