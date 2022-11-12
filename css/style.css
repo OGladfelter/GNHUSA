@@ -52,9 +52,9 @@ span.insideHeader {
     font-family: inherit;
     opacity: inherit;
 }
-h1 { font-size: 64px; margin: 40px 10px 30px 10px; font-weight: normal; line-height: 72px; font-family: Garamond, Georgia, serif; }
-h2 { text-align:center; font-size: 32px; margin: 10px 10px 0px 10px; font-weight: bold; line-height: 38px;}
-h3 { font-size: 20px; margin: 50px 0px 5px 0px; font-weight: bold; line-height: 24px;}
+h1 { font-size: 64px; margin: 40px 10px 30px 10px; font-weight: normal; line-height: 72px; font-family: Georgia, Arial; }
+h2 { text-align:center; font-size: 32px; margin: 10px 10px 0px 10px; font-weight: bold; line-height: 38px; font-family: Arial, Georgia, serif;}
+h3 { font-size: 20px; margin: 50px 0px 5px 0px; font-weight: bold; line-height: 24px; font-family: Arial, Georgia, serif;}
 li {
     font-size: 20px;
     list-style-position: outside;
@@ -88,7 +88,7 @@ svg {
     font-size: 16px;
     text-anchor: end;
     user-select: none;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 .y-axis-label {
     text-anchor: start;
@@ -292,7 +292,7 @@ sup:hover{
     fill: white;
     pointer-events: none;
     font-size: 14px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 .footer {
