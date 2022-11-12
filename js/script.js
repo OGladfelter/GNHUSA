@@ -1,6 +1,6 @@
 const primaryColor = '#0024d9';
-const primaryColorLight = '#56cdfc'; // low end of map; younger ages in age analysis
-const primaryColorDark = '#0006b8'; // high end of map
+const primaryColorLight = 'hsl(197, 97%, 66%)'; // low end of map, bars, and younger ages in age analysis
+const primaryColorDark = '#0006b8'; // high end of map, bars, and older ages in age analysis
 const mobile = window.innerWidth < 600;
 
 function map() {
