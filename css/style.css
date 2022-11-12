@@ -252,6 +252,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin: auto 2.5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
