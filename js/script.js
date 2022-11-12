@@ -348,11 +348,14 @@ function ageAndHappiness() {
     var margin = {top: 10, right: 30, bottom: 20, left: 30};
     width = width - margin.left - margin.right;
     var height = width * .5 - margin.top - margin.bottom;
+    var radius = 3.5;
+
     // adjust for mobile
     if (mobile) {
         height = window.innerHeight * .5;
         margin.left = 25;
         margin.right = 10;
+        radius = 3;
     }
 
     // set the ranges
@@ -387,11 +390,10 @@ function ageAndHappiness() {
         svg.selectAll("dot")
         .data(data)
         .enter().append("circle")
-        .attr("r", 3)
+        .attr("r", radius)
         .attr("cx", function(d) { return x(d.Q2); })
         .attr("cy", function(d) { return y(d.lifeSat); })
         .style('fill', primaryColorMedium)
-        .style('opacity', 0.9)
         .on("mouseover", function(event, d) {
             tooltip.html('The average life satisfaction score for respondents aged <b>' + d.Q2 + " years</b> \n is <b>" + d.lifeSat.toFixed(1) + "</b>")
                 .style('left', event.pageX / window.innerWidth <= 0.5 ? event.pageX + 5 + 'px' : event.pageX - tooltip.node().getBoundingClientRect().width + 'px')
