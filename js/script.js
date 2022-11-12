@@ -677,18 +677,22 @@ function lollipop() {
 function donations() {
     d3.csv("data/contributions.csv").then( function(data) {
         const activists = data.filter(d => d.title == 'Happiness Activist').slice().sort((a, b) => d3.ascending(a.name, b.name));
-        let activistsList = '';
         activists.forEach(d => {
-            activistsList += d.name + ' &#x2022 ';
+            var container = document.getElementById("activists");
+            const div = document.createElement('div');
+            div.innerHTML = d.name;
+            div.classList.add('name');
+            container.appendChild(div);
         })
-        document.getElementById('activists').innerHTML = activistsList;
 
         const others = data.filter(d => d.title == 'Other').slice().sort((a, b) => d3.ascending(a.name, b.name));
-        let othersList = '';
         others.forEach(d => {
-            othersList += d.name + ' &#x2022 ';
+            var container = document.getElementById("others");
+            const div = document.createElement('div');
+            div.innerHTML = d.name;
+            div.classList.add('name');
+            container.appendChild(div);
         })
-        document.getElementById('others').innerHTML = othersList;
     });
 }
 

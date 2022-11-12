@@ -205,8 +205,20 @@ div.tooltip {
     font-weight: bold;
     font-size: 18px;
 }
-.names {
+.namesContainer {
     font-size: 16px;
+    flex-wrap: wrap;
+    display: flex;
+}
+.name {
+    flex: 1 0 33%;
+    text-align: center;
+}
+.contributionsSection {
+    text-align: center;
+    width: 75%;
+    margin: auto;
+    margin-top: 30px;
 }
 
 .buttonContainer {
@@ -290,12 +302,6 @@ button:hover {
 }
 .footerLink:hover {text-decoration: none; background-color: #001ba1;}
 
-.contributionsSection {
-    text-align: center;
-    width: 75%;
-    margin: auto;
-    margin-top: 30px;
-}
 .miniChartContainer {
     display:flex; align-items:center; justify-content:center;
 }
@@ -395,6 +401,10 @@ sup:hover{
     }
     button:hover {
         background: #0007c9;
+    }
+    .name {
+        flex: 1 0 100%;
+        text-align: center;
     }
 }
 
