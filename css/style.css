@@ -286,23 +286,6 @@ button:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.footer {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 5vh;
-    line-height: 5vh;
-    background-color: #001ba1;
-    color: white;
-    text-align: center;
-    margin: auto;
-    font-size: 20px;
-}
-.footerLink {
-    color: white !important;
-}
-.footerLink:hover {text-decoration: none; background-color: #001ba1;}
-
 .miniChartContainer {
     display:flex; align-items:center; justify-content:center;
 }
@@ -311,9 +294,6 @@ button:hover {
 }
 .lollipopTextContainer {
     width:45%;
-}
-.photo2 {
-    display: none;
 }
 
 sup { 
@@ -342,12 +322,32 @@ sup:hover{
 #mapLegend {
     margin-top: 25px;
 }
-
 .textOnBars {
     alignment-baseline: central;
     fill: white;
     pointer-events: none;
     font-size: 14px;
+}
+
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 5vh;
+    max-height: 100vh;
+    background-color: #001ba1;
+    color: white;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 0px;
+}
+.footerLink {
+    color: white !important;
+}
+.footerLink:hover {text-decoration: none; background-color: #001ba1;}
+
+.mobilePhoto {
+    display: none;
 }
 
 /* mobile CSS */
@@ -391,12 +391,6 @@ sup:hover{
         position: relative;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
-    .photo2 {
-        display: block;
-    }
-    .photo1 {
-        display: none;
-    }
     .buttonContainer > div {
         flex-basis: 40%;  
     }
@@ -407,6 +401,13 @@ sup:hover{
         flex: 1 0 100%;
         text-align: center;
     }
+    .mobilePhoto {
+        display: block;
+    }
+    .desktopPhoto {
+        display: none;
+    }
+    
 }
 
 @media (min-width: 320px) and (max-width: 600px) {
