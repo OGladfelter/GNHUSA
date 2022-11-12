@@ -153,7 +153,7 @@ function barRanker() {
         margin.right = 20;
         width = box.offsetWidth - margin.left - margin.right;
         yTickLabels = 'stateShort'; // use 2-letter abbreviations
-        metricDict = {'lifeSat':'Life satisfaction', 'happiness':'Happiness', 'worthwhile':"Worthwhileness", 'anxiety':'Anxiousness'};
+        metricDict = {'lifeSat':'Life satisfaction', 'happiness':'Happiness', 'worthwhile':"Agree one's activities are worthwhile", 'anxiety':'Anxiousness'};
     }
     const svg = d3.select("#barChart")
         .append("svg")
