@@ -390,6 +390,9 @@ sup:hover{
     .buttonContainer > div {
         flex-basis: 40%;  
     }
+    button:hover {
+        background: #0007c9;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 600px) {
