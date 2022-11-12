@@ -144,7 +144,7 @@ function barRanker() {
     let yTickLabels = 'state';
 
     // x-axis labels
-    const metricDict = {'lifeSat':'How satisfied are you with your life?', 'happiness':'How happy did you feel yesterday?', 'worthwhile':'To what extent do you feel that the things you do in your life are worthwhile?', 'anxiety':'How anxious did you feel yesterday?'};
+    let metricDict = {'lifeSat':'How satisfied are you with your life?', 'happiness':'How happy did you feel yesterday?', 'worthwhile':'To what extent do you feel that the things you do in your life are worthwhile?', 'anxiety':'How anxious did you feel yesterday?'};
 
     // adjust for mobile
     if (mobile) {
@@ -153,6 +153,7 @@ function barRanker() {
         margin.right = 20;
         width = box.offsetWidth - margin.left - margin.right;
         yTickLabels = 'stateShort'; // use 2-letter abbreviations
+        metricDict = {'lifeSat':'Life satisfaction', 'happiness':'Happiness', 'worthwhile':"Worthwhileness", 'anxiety':'Anxiousness'};
     }
     const svg = d3.select("#barChart")
         .append("svg")
@@ -239,7 +240,7 @@ function barRanker() {
             .style('text-anchor', 'middle')
             .attr("x", width / 2)
             .attr("y", height + margin.bottom - 10)
-            .text("How satisfied are you with your life?");
+            .text(metricDict['lifeSat']);
 
         d3.selectAll(".rankerButtons").on("click", function() {
             // determine which toggle was selected
