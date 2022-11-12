@@ -154,11 +154,27 @@
 					</div>
 					<div class="scrollOnTop" style="visibility:hidden;"></div>
 				</div>
-				<div style="text-align: center;">
-					<button id="lifeSatButton" data-metric="lifeSat" data-ranker="lifeSatRank" class="rankerButtons buttonSelected">Life satisfaction</button>
-					<button id="anxietyButton" data-metric="happiness" data-ranker="happyRank" class="rankerButtons">Happiness yesterday</button>
-					<button id="lifeSatButton" data-metric="worthwhile" data-ranker="worthwhileRank" class="rankerButtons">Worthwhile activities</button>
-					<button id="anxietyButton" data-metric="anxiety" data-ranker="anxietyRank" class="rankerButtons">Anxiety</button>
+				<div class="buttonContainer">
+					<div class="box">
+						<div>
+							<button id="lifeSatButton" data-metric="lifeSat" data-ranker="lifeSatRank" class="rankerButtons buttonSelected">Life satisfaction</button>
+						</div>
+					</div>
+					<div class="box">
+						<div>
+							<button id="anxietyButton" data-metric="happiness" data-ranker="happyRank" class="rankerButtons">Happiness yesterday</button>
+						</div>
+					</div>
+					<div class="box">
+						<div>
+							<button id="lifeSatButton" data-metric="worthwhile" data-ranker="worthwhileRank" class="rankerButtons">Worthwhile activities</button>
+						</div>
+					</div>
+					<div class="box">
+						<div>
+							<button id="anxietyButton" data-metric="anxiety" data-ranker="anxietyRank" class="rankerButtons">Anxiety yesterday</button>
+						</div>
+					</div>
 				</div>
 				<div id="barChart"></div>
 				<div id="tooltipBars" class="tooltip" style="text-align:left;"></div>
@@ -207,7 +223,7 @@
 					<p class="bold">Happiness Champions</p>
 					<p class="names">Rob Moore &#x2022 Anonymous</p>
 					<p class="bold">Happiness Innovators</p>
-					<p class="names">Paula Francis</p>
+					<p class="names">Oliver Gladfelter &#x2022 Paula Francis</p>
 					<p class="bold">Happiness Activists</p>
 					<p class="names" id="activists"></p>
 					<p class="bold">Other</p>

@@ -209,6 +209,28 @@ div.tooltip {
     font-size: 16px;
 }
 
+.buttonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.buttonContainer > div {
+    display: flex; 
+    flex-basis: auto;  
+    justify-content: center;
+    flex-direction: column;
+}
+.buttonContainer > div > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.box { 
+    margin: 5px;
+}
+
 button {
     background: white;
     border: 1px black solid;
@@ -364,6 +386,9 @@ sup:hover{
     }
     .mapContainer {
         top:0%;
+    }
+    .buttonContainer > div {
+        flex-basis: 40%;  
     }
 }
 
