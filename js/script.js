@@ -6,7 +6,7 @@ const mobile = window.innerWidth < 600;
 function map() {
     // add svg
     let box = document.getElementById('map');
-    const width = box.offsetWidth;
+    const width = box.offsetWidth * .95;
     let height = width * .6;
 
     if (mobile) {
