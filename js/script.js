@@ -105,7 +105,7 @@ function map() {
             const legendSVG = d3.select("#mapLegend")
                 .append("svg")
                 .attr("width", width)
-                .attr("height", 200);
+                .attr("height", 100);
 
             var legendLabels = ["Lowest average", "Highest average"];
 
@@ -121,7 +121,7 @@ function map() {
             .append("circle")
                 .attr("cx", 20)
                 .attr("cy", function(d,i){ return offset + i*25}) // 25 is the distance between dots
-                .attr("r", 7)
+                .attr("r", 5)
                 .style("fill", function(d){ return legendColorScale(d)})
 
             // Add one dot in the legend for each name.
@@ -134,7 +134,8 @@ function map() {
                 .style("fill", function(d){ return legendColorScale(d)})
                 .text(function(d){ return d})
                 .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle");
+                .style("alignment-baseline", "middle")
+                .style('font-size', '14px');
 
             new Waypoint({
                 element: document.getElementById('top5LifeSatStep'),

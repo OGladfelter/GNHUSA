@@ -332,6 +332,9 @@ sup:hover{
 .mapContainer {
     position:sticky; top:15%;
 }
+#mapLegend {
+    margin-top: 25px;
+}
 
 .textOnBars {
     alignment-baseline: central;
@@ -343,6 +346,9 @@ sup:hover{
 /* mobile CSS */
 @media (min-width: 320px) and (max-width: 999px) {
 
+    #mapLegend {
+        margin-top: 0px;
+    }
     .title-info {
         width: 95%;
     }
@@ -383,9 +389,6 @@ sup:hover{
     }
     .photo1 {
         display: none;
-    }
-    .mapContainer {
-        top:0%;
     }
     .buttonContainer > div {
         flex-basis: 40%;  
