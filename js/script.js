@@ -135,7 +135,7 @@ function map() {
                 .text(function(d){ return d})
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
-                .style('font-size', '14px');
+                .style('font-size', '16px');
 
             new Waypoint({
                 element: document.getElementById('top5LifeSatStep'),
