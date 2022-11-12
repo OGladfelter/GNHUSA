@@ -135,7 +135,7 @@ function map() {
 }
 
 function barRanker() {
-    const margin = {top: 20, right: 30, bottom: 50, left: 50}
+    const margin = {top: 20, right: 30, bottom: 50, left: 30}
 
     // add svg
     let box = document.getElementById('barChart');
@@ -143,12 +143,15 @@ function barRanker() {
     let height = window.innerHeight * 1.5 - margin.top - margin.bottom;
     let yTickLabels = 'state';
 
+    // x-axis labels
+    const metricDict = {'lifeSat':'How satisfied are you with your life?', 'happiness':'How happy did you feel yesterday?', 'worthwhile':'To what extent do you feel that the things you do in your life are worthwhile?', 'anxiety':'How anxious did you feel yesterday?'};
+
     // adjust for mobile
     if (mobile) {
         height = window.innerHeight * 1.5;
-        width = box.offsetWidth;
-        margin.left = 30;
-        margin.right = 0;
+        margin.left = 20;
+        margin.right = 20;
+        width = box.offsetWidth - margin.left - margin.right;
         yTickLabels = 'stateShort'; // use 2-letter abbreviations
     }
     const svg = d3.select("#barChart")
@@ -236,7 +239,7 @@ function barRanker() {
             .style('text-anchor', 'middle')
             .attr("x", width / 2)
             .attr("y", height + margin.bottom - 10)
-            .text("Life satisfaction");
+            .text("How satisfied are you with your life?");
 
         d3.selectAll(".rankerButtons").on("click", function() {
             // determine which toggle was selected
@@ -266,7 +269,7 @@ function barRanker() {
             svg.selectAll(".textOnBars").transition().duration(1500).attr("y", d => y(d[rankMetric]) + (y.bandwidth() / 2));
 
             // update x-axis label
-            svg.select("#rankerAxisLabel").text(metricTitle);
+            svg.select("#rankerAxisLabel").text(metricDict[metric]);
 
             // update button style
             d3.selectAll(".rankerButtons").each(function (p, j) {
