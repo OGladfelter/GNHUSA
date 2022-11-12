@@ -10,7 +10,7 @@ function map() {
     let height = width * .6;
 
     if (mobile) {
-        height = window.innerHeight;
+        height = window.innerHeight * .4;
     }
 
     const svg = d3.select("#map")
@@ -77,6 +77,64 @@ function map() {
                 })
                 .style("stroke", "white")
                 .attr("class", "state" );
+
+            // svg.append("g")
+            //     .selectAll(".state-label")
+            //     .data(topo.features)
+            //     .enter()
+            //     .append("text")
+            //     .attr("class", "state-label")
+            //     .text(function(d) {
+            //         console.log(d);
+            //         if (d.properties.NAME == 'Oregon') {
+            //             return 'OR';
+            //         }
+            //         return '';
+            //     })
+            //     .attr("x", function(d){
+            //         return d3.geoPath().projection(projection).centroid(d)[0];
+            //     })
+            //     .attr("y", function(d){
+            //         return  d3.geoPath().projection(projection).centroid(d)[1];
+            //     })
+            //     .attr("text-anchor","middle")
+            //     .attr('fill', 'white');
+
+            // add color legend for map
+            // create a list of keys
+            const legendSVG = d3.select("#mapLegend")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", 200);
+
+            var legendLabels = ["Lowest average", "Highest average"];
+
+            var legendColorScale = d3.scaleOrdinal()
+                .domain(legendLabels)
+                .range([primaryColorLight, primaryColorDark]);
+
+            const offset = 20; // where the first dot appears
+            // Add one dot in the legend for each name.
+            legendSVG.selectAll("legendMarkers")
+            .data(legendLabels)
+            .enter()
+            .append("circle")
+                .attr("cx", 20)
+                .attr("cy", function(d,i){ return offset + i*25}) // 25 is the distance between dots
+                .attr("r", 7)
+                .style("fill", function(d){ return legendColorScale(d)})
+
+            // Add one dot in the legend for each name.
+            legendSVG.selectAll("legendLabels")
+            .data(legendLabels)
+            .enter()
+            .append("text")
+                .attr("x", 40)
+                .attr("y", function(d,i){ return offset + i*25}) 
+                .style("fill", function(d){ return legendColorScale(d)})
+                .text(function(d){ return d})
+                .attr("text-anchor", "left")
+                .style("alignment-baseline", "middle");
 
             new Waypoint({
                 element: document.getElementById('top5LifeSatStep'),
