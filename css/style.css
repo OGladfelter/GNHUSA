@@ -177,13 +177,15 @@ div.tooltip {
 }
 .name {
     flex: 1 0 33%;
-    text-align: center;
 }
 .contributionsSection {
     text-align: center;
     width: 75%;
     margin: auto;
     margin-top: 30px;
+}
+.fullLine {
+    flex: 1 0 100% !important;
 }
 
 .buttonContainer {
