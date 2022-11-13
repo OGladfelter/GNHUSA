@@ -46,8 +46,13 @@
 		<script src="js/rellax.min.js"></script>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
 		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
+		<!-- paypal specific -->
+		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+ 		<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
 	</head>
 	<body>
+		<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 		<div class="title-container">
 			<div class="title-info">
 				<img src="img/banner.png" width="100%">
@@ -246,10 +251,13 @@
 			<article>
 				<h2>Get involved with GNHUSA</h2>
 				<p>Gross National Happiness USA is a grassroots organization focused on changing the definition of progress and success in the United States.</p>
-				<p>This survey was only made possible by contributions from readers like you. We plan to collect more responses in the future and to eventually show the trend of USA happiness over time, so please consider <a href="https://gnhusa.org/donate-gnhusa/" target="_blank">making a donation</a> to help support this important research.</p>
+				<p>This survey was only made possible by contributions from readers like you. We plan to collect more responses in the future and to eventually show the trend of USA happiness over time, so please consider making a donation to help support this important research.</p>
+				<div style="text-align:center;">
+					<div id="paypal-donate-button-container"></div>
+				</div>
 				<p>You can also support GNHUSA by <a href="https://gnhusa.org/newsletter-signup/" target="_blank">signing the Charter for Happiness</a> or subscribing to our <a href="https://gnhusa.org/charter-for-happiness/#sign" target="_blank">newsletter</a>.</p>
 				<p><i>Rob Moore</i> <span style="font-size:25px;"><a href = "mailto:rob@gnhusa.org">&#9993;</a></span></p>
-				<p><i>President, Gross National Happiness USA</i></p>	
+				<p><i>President, Gross National Happiness USA</i></p>
 			</article>
 		</div>
 		<div class="footer">

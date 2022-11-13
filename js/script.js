@@ -729,6 +729,20 @@ function main() {
     addFootnoteInteraction('3');
 
     var rellax = new Rellax('.rellax');
+
+    // render paypal button
+    PayPal.Donation.Button({
+        env: 'production',
+        hosted_button_id: '8N6YQ4U5R4D7W',
+        image: {
+            src: 'img/donate.png',
+            title: 'PayPal - The safer, easier way to pay online',
+            alt: 'Donate with PayPal button'
+        },
+        onComplete: function (params) {
+            console.log('Thank you for your donation!');
+        },
+    }).render('#paypal-donate-button-container');
 }
 
 main();
