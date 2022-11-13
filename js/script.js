@@ -8,9 +8,11 @@ function map() {
     let box = document.getElementById('map');
     const width = box.offsetWidth * .95;
     let height = width * .6;
+    let mapStroke = .2;
 
     if (mobile) {
         height = window.innerHeight * .4;
+        mapStroke = .1;
     }
 
     const svg = d3.select("#map")
@@ -76,7 +78,7 @@ function map() {
                     return d.properties.NAME;
                 })
                 .style("stroke", "white")
-                .style('stroke-width', 0.1)
+                .style('stroke-width', mapStroke)
                 .attr("class", "state" );
 
             // svg.append("g")
