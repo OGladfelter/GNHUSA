@@ -76,6 +76,7 @@ function map() {
                     return d.properties.NAME;
                 })
                 .style("stroke", "white")
+                .style('stroke-width', 0.1)
                 .attr("class", "state" );
 
             // svg.append("g")
@@ -738,9 +739,6 @@ function main() {
             src: 'img/donate.png',
             title: 'PayPal - The safer, easier way to pay online',
             alt: 'Donate with PayPal button'
-        },
-        onComplete: function (params) {
-            console.log('Thank you for your donation!');
         },
     }).render('#paypal-donate-button-container');
 }
