@@ -234,7 +234,7 @@ button:hover {
 
 .scrollOnTop {
     position: relative;
-    background-color: white;
+    background-color: rgba(255,255,255,1);
     border: 1px black solid;
     padding: 10px 20px;
     width: 60%;
@@ -242,6 +242,7 @@ button:hover {
     margin-top: 90vh;
     margin-bottom: 20vh;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 9999;
 }
 
 .miniChartContainer {
@@ -276,6 +277,7 @@ sup:hover{
 }
 .mapContainer {
     position:sticky; top:15%;
+    z-index: -1;
 }
 #mapLegend {
     margin-top: 25px;
@@ -337,6 +339,7 @@ sup:hover{
     }
     .lollipopContainer {
         width:100%; float:initial; position:sticky; top:10%;
+        z-index: -1;
     }
     .lollipopTextContainer {
         width:100%;
